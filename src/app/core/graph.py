@@ -52,7 +52,7 @@ class Graph:
             True
         """
         # TODO: implémenter
-        pass
+        self.graph[node] = []
     
     def add_edge(self, a: str, b: str) -> None:
         """
