@@ -139,7 +139,7 @@ class Graph:
     def has_node(self, node: str) -> bool:
         """Vérifie si un nœud existe dans le graphe."""
         # TODO: implémenter
-        pass
+        return node in self.graph.keys()
     
     def has_edge(self, a: str, b: str) -> bool:
         """Vérifie si une arête existe entre deux nœuds."""
