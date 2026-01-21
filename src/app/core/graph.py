@@ -97,6 +97,7 @@ class Graph:
         """
         # TODO: implémenter
         # Attention : supprimer aussi le nœud de toutes les listes de voisins
+        self.nodes_list.remove(node)
         pass
     
     def remove_edge(self, a: str, b: str) -> None:
@@ -147,12 +148,12 @@ class Graph:
     def has_node(self, node: str) -> bool:
         """Vérifie si un nœud existe dans le graphe."""
         # TODO: implémenter
-        pass
+        return node in self.nodes_list
     
     def has_edge(self, a: str, b: str) -> bool:
         """Vérifie si une arête existe entre deux nœuds."""
         # TODO: implémenter
-        pass
+        return (a,b) in self.edges_list
     
     def nodes(self) -> list[str]:
         """
@@ -161,6 +162,8 @@ class Graph:
         Returns:
             Liste triée des nœuds (ordre alphabétique)
         """
+        if len(self.nodes_list)>0:
+            return self.nodes_list
         return self.nodes_list
     
     def edges(self) -> list[tuple[str, str]]:
