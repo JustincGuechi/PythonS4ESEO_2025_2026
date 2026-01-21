@@ -198,4 +198,3 @@ class Graph:
     def __repr__(self) -> str:
         """Représentation lisible du graphe pour debug."""
         return f"Graph(nodes={len(self)}, edges={len(self.edges())})"
-    
