@@ -176,8 +176,7 @@ class Graph:
     
     def __len__(self) -> int:
         """Retourne le nombre de nœuds dans le graphe."""
-        # TODO: implémenter
-        pass
+        return len(self.graph)
     
     def __repr__(self) -> str:
         """Représentation lisible du graphe pour debug."""
