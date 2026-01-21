@@ -26,12 +26,12 @@ class Graph:
         >>> g.neighbors("A")
         ['B']
     """
-    
+
     def __init__(self):
         """Initialise un graphe vide."""
         # TODO: initialiser la structure de données
         # Conseil : utiliser un dictionnaire
-        pass
+        self.graph = {}
     
     def add_node(self, node: str) -> None:
         """
