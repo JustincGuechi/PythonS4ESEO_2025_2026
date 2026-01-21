@@ -32,8 +32,6 @@ class Graph:
         # TODO: initialiser la structure de données
         # Conseil : utiliser un dictionnaire
         self.graph=dict()
-        self.nodes_list=[]
-        self.edges_list=[]
 
     def add_node(self, node: str) -> None:
         """
@@ -54,13 +52,14 @@ class Graph:
             True
         """
         # TODO: implémenter
-        if type(node) != str :
+        """if type(node) != str :
             raise TypeError
         if node in self.nodes_list :
             return None
         else :
             self.nodes_list.append(node)
-            g.graph[node] = ""
+            g.graph[node] = """""
+        pass
     
     def add_edge(self, a: str, b: str) -> None:
         """
@@ -97,7 +96,10 @@ class Graph:
         """
         # TODO: implémenter
         # Attention : supprimer aussi le nœud de toutes les listes de voisins
-        self.nodes_list.remove(node)
+        del self.graph[node]
+        for i in self.nodes():
+            if self.has_edge(i,node):
+                self.graph[i].remove(node)
         pass
     
     def remove_edge(self, a: str, b: str) -> None:
@@ -113,7 +115,8 @@ class Graph:
         """
         # TODO: implémenter
         # Attention : graphe NON ORIENTÉ → supprimer dans les deux sens
-        pass
+        self.graph[a].remove(b)
+        self.graph[b].remove(a)
     
     def neighbors(self, node: str) -> list[str]:
         """
@@ -148,12 +151,17 @@ class Graph:
     def has_node(self, node: str) -> bool:
         """Vérifie si un nœud existe dans le graphe."""
         # TODO: implémenter
-        return node in self.nodes_list
+        try:
+            self.graph[node]
+            return True
+        except:
+            return False
+
     
     def has_edge(self, a: str, b: str) -> bool:
         """Vérifie si une arête existe entre deux nœuds."""
         # TODO: implémenter
-        return (a,b) in self.edges_list
+        return (a,b) in self.edges()
     
     def nodes(self) -> list[str]:
         """
@@ -162,9 +170,7 @@ class Graph:
         Returns:
             Liste triée des nœuds (ordre alphabétique)
         """
-        if len(self.nodes_list)>0:
-            return self.nodes_list
-        return self.nodes_list
+        return list(self.graph.keys())
     
     def edges(self) -> list[tuple[str, str]]:
         """
@@ -180,7 +186,11 @@ class Graph:
             >>> g.edges()
             [('A', 'B')]  # Ordre normalisé
         """
-        return self.edges_list
+        edges_list=[]
+        for k in self.graph.keys():
+            for i in self.graph[k]:
+                edges_list.append((f"{k}",f"{i}"))
+        return edges_list
     
     def __len__(self) -> int:
         """Retourne le nombre de nœuds dans le graphe."""
@@ -193,5 +203,4 @@ class Graph:
 g = Graph()
 g.add_node("A")
 g.add_node("A")
-print(g.nodes_list)
 print(g.graph)
