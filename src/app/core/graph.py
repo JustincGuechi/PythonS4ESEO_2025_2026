@@ -54,7 +54,12 @@ class Graph:
             True
         """
         # TODO: implémenter
-        pass
+        if type(node) != str :
+            raise TypeError
+        if self.has_key(node) :
+            return None
+        else :
+            self[node] = ""
     
     def add_edge(self, a: str, b: str) -> None:
         """
