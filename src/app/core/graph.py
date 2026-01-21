@@ -56,10 +56,11 @@ class Graph:
         # TODO: implémenter
         if type(node) != str :
             raise TypeError
-        if self.has_key(node) :
+        if node in self.nodes_list :
             return None
         else :
-            self[node] = ""
+            self.nodes_list.append(node)
+            g.graph[node] = ""
     
     def add_edge(self, a: str, b: str) -> None:
         """
@@ -186,3 +187,8 @@ class Graph:
         """Représentation lisible du graphe pour debug."""
         return f"Graph(nodes={len(self)}, edges={len(self.edges())})"
     
+g = Graph()
+g.add_node("A")
+g.add_node("A")
+print(g.nodes_list)
+print(g.graph)
