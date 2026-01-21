@@ -52,13 +52,12 @@ class Graph:
             True
         """
         # TODO: implémenter
-        """if type(node) != str :
+        if type(node) != str :
             raise TypeError
-        if node in self.nodes_list :
+        if  self.has_node(node) :
             return None
         else :
-            self.nodes_list.append(node)
-            g.graph[node] = """""
+            g.graph[node] = []
         pass
     
     def add_edge(self, a: str, b: str) -> None:
