@@ -57,7 +57,7 @@ class Graph:
         if  self.has_node(node) :
             return None
         else :
-            g.graph[node] = []
+            self.graph[node] = []
         pass
     
     def add_edge(self, a: str, b: str) -> None:
@@ -199,7 +199,3 @@ class Graph:
         """Représentation lisible du graphe pour debug."""
         return f"Graph(nodes={len(self)}, edges={len(self.edges())})"
     
-g = Graph()
-g.add_node("A")
-g.add_node("A")
-print(g.graph)
