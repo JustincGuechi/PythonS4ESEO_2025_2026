@@ -31,8 +31,10 @@ class Graph:
         """Initialise un graphe vide."""
         # TODO: initialiser la structure de données
         # Conseil : utiliser un dictionnaire
-        pass
-    
+        self.graph=dict()
+        self.nodes_list=[]
+        self.edges_list=[]
+
     def add_node(self, node: str) -> None:
         """
         Ajoute un nœud au graphe.
@@ -153,8 +155,7 @@ class Graph:
         Returns:
             Liste triée des nœuds (ordre alphabétique)
         """
-        # TODO: implémenter
-        pass
+        return self.nodes_list
     
     def edges(self) -> list[tuple[str, str]]:
         """
@@ -170,15 +171,13 @@ class Graph:
             >>> g.edges()
             [('A', 'B')]  # Ordre normalisé
         """
-        # TODO: implémenter
-        # Astuce : utiliser un set pour éviter les doublons
-        pass
+        return self.edges_list
     
     def __len__(self) -> int:
         """Retourne le nombre de nœuds dans le graphe."""
-        # TODO: implémenter
-        pass
+        return len(self.graph)
     
     def __repr__(self) -> str:
         """Représentation lisible du graphe pour debug."""
         return f"Graph(nodes={len(self)}, edges={len(self.edges())})"
+    
