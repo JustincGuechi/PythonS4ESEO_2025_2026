@@ -190,6 +190,9 @@ class Graph:
         """
         # TODO: implémenter
         # Astuce : utiliser un set pour éviter les doublons
+        if len(self.graph) == 0 :
+            return []
+        
         arete = []
         for i in self.graph:
             for j in self.graph[i]:
