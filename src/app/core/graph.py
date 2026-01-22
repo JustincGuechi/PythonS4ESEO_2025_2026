@@ -93,11 +93,14 @@ class Graph:
         Raises:
             ValueError: Si le nœud n'existe pas
         """
-        del self.graph[node]
-        for i in self.nodes():
-            if self.has_edge(i,node):
-                self.graph[i].remove(node)
-        pass
+        if self.has_node(node):
+            del self.graph[node]
+            for i in self.nodes():
+                if self.has_edge(i,node):
+                    self.graph[i].remove(node)
+        else: 
+            raise ValueError
+        
     
     def remove_edge(self, a: str, b: str) -> None:
         """
@@ -154,7 +157,7 @@ class Graph:
     
     def has_edge(self, a: str, b: str) -> bool:
         """Vérifie si une arête existe entre deux nœuds."""
-        return (a,b) in self.edges()
+        return ((a,b) in self.edges() or (b,a) in self.edges())
     
     def nodes(self) -> list[str]:
         """
@@ -182,7 +185,8 @@ class Graph:
         edges_list=[]
         for k in self.graph.keys():
             for i in self.graph[k]:
-                edges_list.append((f"{k}",f"{i}"))
+                if (f"{i}",f"{k}") not in edges_list:
+                    edges_list.append((f"{k}",f"{i}"))
         return edges_list
     
     def __len__(self) -> int:
