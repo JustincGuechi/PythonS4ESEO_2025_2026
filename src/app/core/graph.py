@@ -181,9 +181,11 @@ class Graph:
         # TODO: implémenter
         # Astuce : utiliser un set pour éviter les doublons
         arete = []
-        for element in self.graph.keys() :
-            if self.graph.has_node(element) == True :
-                return arete
+        for i in self.graph:
+            for j in self.graph[i]:
+                if i < j:
+                    arete.append((i, j))
+        return sorted(arete)
     
     def __len__(self) -> int:
         """Retourne le nombre de nœuds dans le graphe."""
