@@ -91,6 +91,11 @@ class Graph:
         # Attention : supprimer aussi le nœud de toutes les listes de voisins
         if node not in self.graph.keys():
             raise ValueError("le noeud n'existe pas")
+        
+        neighbors_list = self.graph[node]
+        for neighbor in neighbors_list:
+            self.graph[neighbor].remove(node)
+
         del self.graph[node]
     
     def remove_edge(self, a: str, b: str) -> None:
