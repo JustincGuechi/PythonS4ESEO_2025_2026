@@ -89,7 +89,9 @@ class Graph:
         """
         # TODO: implémenter
         # Attention : supprimer aussi le nœud de toutes les listes de voisins
-        pass
+        if node not in self.graph.keys():
+            raise ValueError("le noeud n'existe pas")
+        del self.branch[node]
     
     def remove_edge(self, a: str, b: str) -> None:
         """
