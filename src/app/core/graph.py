@@ -75,8 +75,8 @@ class Graph:
         """
         # TODO: implémenter
         # Attention : graphe NON ORIENTÉ → ajouter dans les deux sens
-        self.graph[a].append(b)
-        self.graph[b].append(a)
+        self.add_node(a)
+        self.add_node(b)
     
     def remove_node(self, node: str) -> None:
         """
