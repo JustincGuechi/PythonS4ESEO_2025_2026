@@ -144,7 +144,9 @@ class Graph:
     def has_edge(self, a: str, b: str) -> bool:
         """Vérifie si une arête existe entre deux nœuds."""
         # TODO: implémenter
-        return b in self.graph[a] and a in self.graph[b]
+        if a not in self.graph or b not in self.graph:
+            return False
+        return b in self.graph[a]
     
     def nodes(self) -> list[str]:
         """
