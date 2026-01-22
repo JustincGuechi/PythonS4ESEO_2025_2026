@@ -104,7 +104,10 @@ class Graph:
         """
         # TODO: implémenter
         # Attention : graphe NON ORIENTÉ → supprimer dans les deux sens
-        pass
+        if a not in self.graph[b] or b not in self.graph[a]:
+            raise ValueError("l'arête n'existe pas")
+        self.graph[a].remove(b)
+        self.graph[b].remove(a)
     
     def neighbors(self, node: str) -> list[str]:
         """
