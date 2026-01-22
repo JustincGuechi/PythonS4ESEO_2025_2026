@@ -26,12 +26,12 @@ class Graph:
         >>> g.neighbors("A")
         ['B']
     """
-    
+
     def __init__(self):
         """Initialise un graphe vide."""
         # TODO: initialiser la structure de données
         # Conseil : utiliser un dictionnaire
-        pass
+        self.graph = {}
     
     def add_node(self, node: str) -> None:
         """
@@ -52,7 +52,7 @@ class Graph:
             True
         """
         # TODO: implémenter
-        pass
+        self.graph[node] = []
     
     def add_edge(self, a: str, b: str) -> None:
         """
@@ -75,7 +75,8 @@ class Graph:
         """
         # TODO: implémenter
         # Attention : graphe NON ORIENTÉ → ajouter dans les deux sens
-        pass
+        self.graph[a].append(b)
+        self.graph[b].append(a)
     
     def remove_node(self, node: str) -> None:
         """
@@ -89,7 +90,9 @@ class Graph:
         """
         # TODO: implémenter
         # Attention : supprimer aussi le nœud de toutes les listes de voisins
-        pass
+        if node not in self.graph.keys():
+            raise ValueError("le noeud n'existe pas")
+        del self.branch[node]
     
     def remove_edge(self, a: str, b: str) -> None:
         """
@@ -104,7 +107,10 @@ class Graph:
         """
         # TODO: implémenter
         # Attention : graphe NON ORIENTÉ → supprimer dans les deux sens
-        pass
+        if a not in self.graph[b] or b not in self.graph[a]:
+            raise ValueError("l'arête n'existe pas")
+        self.graph[a].remove(b)
+        self.graph[b].remove(a)
     
     def neighbors(self, node: str) -> list[str]:
         """
@@ -139,12 +145,12 @@ class Graph:
     def has_node(self, node: str) -> bool:
         """Vérifie si un nœud existe dans le graphe."""
         # TODO: implémenter
-        pass
+        return node in self.graph.keys()
     
     def has_edge(self, a: str, b: str) -> bool:
         """Vérifie si une arête existe entre deux nœuds."""
         # TODO: implémenter
-        pass
+        return b in self.graph[a] and a in self.graph[b]
     
     def nodes(self) -> list[str]:
         """
@@ -153,8 +159,10 @@ class Graph:
         Returns:
             Liste triée des nœuds (ordre alphabétique)
         """
-        # TODO: implémenter
-        pass
+        liste=[]
+        for k in self.graph.keys():
+            liste.append(k)
+            return sorted(liste)
     
     def edges(self) -> list[tuple[str, str]]:
         """
@@ -176,8 +184,7 @@ class Graph:
     
     def __len__(self) -> int:
         """Retourne le nombre de nœuds dans le graphe."""
-        # TODO: implémenter
-        pass
+        return len(self.graph)
     
     def __repr__(self) -> str:
         """Représentation lisible du graphe pour debug."""
