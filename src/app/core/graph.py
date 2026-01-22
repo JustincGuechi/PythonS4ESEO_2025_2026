@@ -81,7 +81,12 @@ class Graph:
         """
         # TODO: implémenter
         # Attention : graphe NON ORIENTÉ → ajouter dans les deux sens
-        pass
+        self.graph.setdefault(a, [])
+        self.graph.setdefault(b, [])
+        if a not in self.graph[b]:
+            self.graph[b].append(a)
+        if b not in self.graph[a]:
+            self.graph[a].append(b)
     
     def remove_node(self, node: str) -> None:
         """
