@@ -26,12 +26,12 @@ class Graph:
         >>> g.neighbors("A")
         ['B']
     """
-    
+
     def __init__(self):
         """Initialise un graphe vide."""
         # TODO: initialiser la structure de données
         # Conseil : utiliser un dictionnaire
-        pass
+        self.graph = {}
     
     def add_node(self, node: str) -> None:
         """
@@ -144,7 +144,7 @@ class Graph:
     def has_node(self, node: str) -> bool:
         """Vérifie si un nœud existe dans le graphe."""
         # TODO: implémenter
-        pass
+        return node in self.graph.keys()
     
     def has_edge(self, a: str, b: str) -> bool:
         """Vérifie si une arête existe entre deux nœuds."""
