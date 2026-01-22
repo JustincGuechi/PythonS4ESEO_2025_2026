@@ -170,6 +170,8 @@ class Graph:
         Returns:
             Liste triée des nœuds (ordre alphabétique)
         """
+        if len(self.graph) == 0 :
+            return 0
         return sorted(list(self.graph.keys()))
     
     def edges(self) -> list[tuple[str, str]]:
