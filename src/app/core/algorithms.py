@@ -132,8 +132,8 @@ def bfs(graph: Graph, start: str) -> list[str]:
     """
     # TODO: implémenter BFS
     # Astuce : file = deque(), visited = set
-    pass
-
+    deque=(start)
+    return deque
 
 def bfs_path(graph: Graph, start: str, goal: str) -> list[str] | None:
     """
