@@ -62,9 +62,10 @@ def dfs(graph: Graph, start: str) -> list[str]:
     while len(pile) != 0 :
         noeudActuel = pile.pop()
         noeudVisite.append(noeudActuel)
-        for element in graph.neighbors(noeudActuel) :
-            if element not in noeudVisite :
-                pile.append(element)
+        if graph.has_node(noeudActuel):
+            for element in graph.neighbors(noeudActuel) :
+                if element not in noeudVisite :
+                    pile.append(element)
     
 
 def dfs_path(graph: Graph, start: str, goal: str) -> list[str] | None:
@@ -93,7 +94,7 @@ def dfs_path(graph: Graph, start: str, goal: str) -> list[str] | None:
     """
     # TODO: implémenter
     # Astuce : pile contient (noeud, chemin) où chemin est une liste
-    pass
+    
 
 
 # ============================================================================
