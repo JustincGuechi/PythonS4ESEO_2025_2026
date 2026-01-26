@@ -57,14 +57,14 @@ def dfs(graph: Graph, start: str) -> list[str]:
     # Astuce : pile = list, visited = set
     if len(graph.neighbors) == 0:
         raise ValueError("le noeud de départ n'existe pas")
-    pile = [start] 
+    pile = [start]
     noeudVisite = []
     while len(pile) != 0 :
         noeudActuel = pile.pop()
         noeudVisite.append(noeudActuel)
         for element in noeudVisite.neighbors :
             if element not in noeudVisite :
-                element 
+                noeudVisite.append(element)
     
 
 def dfs_path(graph: Graph, start: str, goal: str) -> list[str] | None:
