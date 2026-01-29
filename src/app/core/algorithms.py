@@ -106,7 +106,7 @@ def dfs_path(graph: Graph, start: str, goal: str) -> list[str] | None:
         if noeudActuel == goal:
             return cheminActuel
         if noeudActuel not in visites:
-            visites.append(noeud_actuel)
+            visites.append(noeudActuel)
             voisins = graph.neighbors(noeudActuel)
             for voisin in voisins[::-1]:
                 if voisin not in visites:
