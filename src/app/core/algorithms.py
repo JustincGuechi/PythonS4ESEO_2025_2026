@@ -56,7 +56,7 @@ def dfs(graph: Graph, start: str) -> list[str]:
     # TODO: implémenter DFS
     # Astuce : pile = list, visited = set
     if not graph.has_node(start):
-        raise ValueError(f"Le nœud '{start}' n'existe pas")
+        raise ValueError("Le graph est vide")
     pile = [start]
     noeudVisite = []
     while len(pile) != 0 :
@@ -64,7 +64,8 @@ def dfs(graph: Graph, start: str) -> list[str]:
         if noeudActuel not in noeudVisite :
             noeudVisite.append(noeudActuel)
             if graph.has_node(noeudActuel):
-                for element in graph.neighbors(noeudActuel) :
+                voisins = graph.neighbors(noeudActuel)
+                for element in voisins[::-1] :
                     if element not in noeudVisite :
                         pile.append(element)      
     return noeudVisite
@@ -96,21 +97,22 @@ def dfs_path(graph: Graph, start: str, goal: str) -> list[str] | None:
     """
     # TODO: implémenter
     # Astuce : pile contient (noeud, chemin) où chemin est une liste
-    if len(graph.neighbors) == 0:
-        raise ValueError("le noeud de départ n'existe pas")
-    cheminFinal = []
-    if goal in start.neighbor(start): 
-        return [start, goal]
-    chemin = graph.dfs(graph, start)
-    for i in range(len(chemin)):
-        if chemin[i] == start :
-            cheminFinal.append(chemin[i])
-        for j in range(i, len(chemin)-1):
-            cheminFinal.append(chemin[j])
-            if chemin[j] == goal :
-                return cheminFinal
+    if not graph.has_node(start):
+        return None
+    pile = [(start, [start])]
+    visites = []
+    while len(pile) > 0:
+        noeudActuel, cheminActuel = pile.pop()
+        if noeudActuel == goal:
+            return cheminActuel
+        if noeudActuel not in visites:
+            visites.append(noeud_actuel)
+            voisins = graph.neighbors(noeudActuel)
+            for voisin in voisins[::-1]:
+                if voisin not in visites:
+                    nouveauChemin = cheminActuel + [voisin]
+                    pile.append((voisin, nouveauChemin))
     return None
-
 # ============================================================================
 # PALIER C : BFS (Breadth-First Search / Parcours en largeur)
 # ============================================================================
