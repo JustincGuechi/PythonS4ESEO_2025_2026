@@ -127,11 +127,11 @@ def bfs(graph: Graph, start: str) -> list[str]:
     # TODO: implémenter BFS
     # Astuce : file = deque(), visited = set
     file=deque(start)
-    visités=set()
+    visites=set()
     while len(file) !=0:
         noeud=file.popleft()
-        if node not in visités:
-            visités.add(noeud)
+        if node not in visites:
+            visites.add(noeud)
             for neighbor in graph
 
 def bfs_path(graph: Graph, start: str, goal: str) -> list[str] | None:
