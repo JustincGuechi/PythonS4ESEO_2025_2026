@@ -55,8 +55,8 @@ def dfs(graph: Graph, start: str) -> list[str]:
     """
     # TODO: implémenter DFS
     # Astuce : pile = list, visited = set
-    if len(graph.neighbors(start)) == 0:
-        raise ValueError("le noeud de départ n'existe pas")
+    if not graph.has_node(start):
+        raise ValueError(f"Le nœud '{start}' n'existe pas")
     pile = [start]
     noeudVisite = []
     while len(pile) != 0 :
