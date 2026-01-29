@@ -93,7 +93,10 @@ def dfs_path(graph: Graph, start: str, goal: str) -> list[str] | None:
     """
     # TODO: implémenter
     # Astuce : pile contient (noeud, chemin) où chemin est une liste
-    pass
+    chemin = graph.dfs(graph, start)
+    for element in chemin :
+        if element == start :
+            
 
 
 # ============================================================================
