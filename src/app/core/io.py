@@ -109,16 +109,7 @@ def graph_to_dict(graph: Graph) -> dict:
         {'nodes': ['A', 'B'], 'edges': [['A', 'B']]}
     """
     # TODO: implémenter
-    
-    nodes_list = list(graph.nodes())
-    
-    edges_list = [list(edge) for edge in graph.edges()]
-    
-    return {
-        "nodes": nodes_list,
-        "edges": edges_list
-    }
-
+    pass
 
 def dict_to_graph(data: dict) -> Graph:
     """
@@ -175,5 +166,5 @@ def dict_to_graph(data: dict) -> Graph:
         if u not in data["nodes"] or v not in data["nodes"]:
             raise ValueError(f"L'arête contient des nœuds non déclarés : {u} ou {v}") 
         g.add_edge(u, v)
-        
+
     return g
