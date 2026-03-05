@@ -76,7 +76,14 @@ def load_graph(filepath: str | Path) -> Graph:
     # 3. Ajouter les nœuds
     # 4. Ajouter les arêtes
     # 5. Gérer les exceptions proprement
-    pass
+    try:
+        with open(filepath, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Le fichier {filepath} n'existe pas.")
+    except json.JSONDecodeError:
+        raise ValueError("Le fichier n'est pas un JSON valide.")
+    return dict_to_graph(data)
 
 
 def graph_to_dict(graph: Graph) -> dict:
