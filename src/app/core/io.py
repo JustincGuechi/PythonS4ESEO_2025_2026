@@ -40,7 +40,13 @@ def save_graph(graph: Graph, filepath: str | Path) -> None:
     # TODO: implémenter
     # Astuce : utiliser graph.nodes() et graph.edges()
     # Convertir les edges en liste de listes pour JSON
-    pass
+    data = graph_to_dict(graph)
+    
+    try:
+        with open(filepath, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=4)
+    except Exception as e:
+        raise IOError(f"Erreur lors de l'écriture du fichier : {e}")
 
 
 def load_graph(filepath: str | Path) -> Graph:
