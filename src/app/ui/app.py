@@ -85,12 +85,16 @@ class GraphExplorerApp:
             with open(chemin_fichier, 'r', encoding='utf-8') as f:
                 data = json.load(f)
                 
-            nodes = data.get("nodes", [])
-            edges = data.get("edges", [])
-            
+            for n in nodes:
+                self.graph.add_node(n) 
+            for e in edges:
+                self.graph.add_edge(e)
+            self.graph = Graph()
+
+            self.clear_canvas()
+
             print(f"Graphe chargé : {len(nodes)} nœuds, {len(edges)} liens.")
-            
-            return nodes, edges
+            messagebox.showinfo("Succès", "Graphe chargé avec succès !")
 
         except json.JSONDecodeError:
             messagebox.showerror("Erreur", "Le fichier n'est pas un JSON valide.")
