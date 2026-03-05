@@ -76,7 +76,34 @@ class GraphExplorerApp:
         """Charge un graphe depuis un fichier JSON."""
         # TODO: implémenter
         # Astuce : utiliser filedialog.askopenfilename()
-        pass
+        chemin_fichier = filedialog.askopenfilename(
+        title="Sélectionner le fichier du graphe",
+        filetypes=[("Fichiers JSON", "*.json"), ("Tous les fichiers", "*.*")])
+    
+        if not chemin_fichier:
+            return None
+
+        try:
+            with open(chemin_fichier, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                
+            for n in nodes:
+                self.graph.add_node(n) 
+            for e in edges:
+                self.graph.add_edge(e)
+            self.graph = Graph()
+
+            self.clear_canvas()
+
+            print(f"Graphe chargé : {len(nodes)} nœuds, {len(edges)} liens.")
+            messagebox.showinfo("Succès", "Graphe chargé avec succès !")
+
+        except json.JSONDecodeError:
+            messagebox.showerror("Erreur", "Le fichier n'est pas un JSON valide.")
+        except Exception as e:
+            messagebox.showerror("Erreur", f"Une erreur est survenue : {e}")
+        
+        return None
     
     def save_graph(self):
         """Sauvegarde le graphe actuel en JSON."""
