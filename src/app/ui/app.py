@@ -65,7 +65,6 @@ class GraphExplorerApp:
         self.graph = Graph()
         self.canvas.delete("all")
         self.node_listbox.delete(0, tk.END)
-        self.status_label.config(text="Nouveau graphe vide créé. Prêt.")
         
     def load_graph(self):
         """Charge un graphe depuis un fichier JSON."""
