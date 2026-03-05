@@ -57,35 +57,13 @@ class GraphExplorerApp:
         # tk.Button(top_frame, text="Sauver", command=self.save_graph).pack(side=tk.LEFT)
         # ...
 
-        top_frame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
-        top_frame.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
+        topFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
+        topFrame.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
         
-        tk.Button(top_frame, text="Nouveau", command=self.new_graph).pack(side=tk.LEFT, padx=5)
-        tk.Button(top_frame, text="Charger", command=self.load_graph).pack(side=tk.LEFT, padx=5)
-        tk.Button(top_frame, text="Sauver", command=self.save_graph).pack(side=tk.LEFT, padx=5)
-        
-        tk.Button(top_frame, text="Lancer DFS", command=self.run_dfs).pack(side=tk.LEFT, padx=20)
-        tk.Button(top_frame, text="Lancer BFS", command=self.run_bfs).pack(side=tk.LEFT, padx=5)
+        tk.Button(topFrame, text="Nouveau", command=self.new_graph).pack(side=tk.LEFT, padx=5)
+        tk.Button(topFrame, text="Charger", command=self.load_graph).pack(side=tk.LEFT, padx=5)
+        tk.Button(topFrame, text="Sauver", command=self.save_graph).pack(side=tk.LEFT, padx=5)
 
-        bottom_frame = tk.Frame(self.root, relief=tk.SUNKEN, bd=1)
-        bottom_frame.pack(side=tk.BOTTOM, fill=tk.X)
-
-        self.status_label = tk.Label(bottom_frame, text="Prêt - En attente d'un graphe...")
-        self.status_label.pack(side=tk.LEFT, padx=5, pady=2)
-
-        left_frame = tk.Frame(self.root, width=200, bg="lightgray")
-        left_frame.pack(side=tk.LEFT, fill=tk.Y, padx=5, pady=5)
-        
-        tk.Label(left_frame, text="Liste des Nœuds", bg="lightgray").pack(pady=5)
-        
-        self.node_listbox = tk.Listbox(left_frame)
-        self.node_listbox.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
-
-        center_frame = tk.Frame(self.root)
-        center_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=5, pady=5)
-        
-        self.canvas = tk.Canvas(center_frame, bg="white", cursor="crosshair")
-        self.canvas.pack(fill=tk.BOTH, expand=True)
 
     def new_graph(self):
         """Crée un nouveau graphe vide."""
