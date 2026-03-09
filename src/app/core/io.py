@@ -114,9 +114,7 @@ def graph_to_dict(graph: Graph) -> dict:
     
     edges_list = [list(edge) for edge in graph.edges()]
     
-    return {
-        "nodes": nodes_list,
-        "edges": edges_list
+    return {"nodes": nodes_list,"edges": edges_list
     }
 
 
