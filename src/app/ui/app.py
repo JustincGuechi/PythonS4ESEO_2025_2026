@@ -92,7 +92,6 @@ class GraphExplorerApp:
         tk.Button(leftFrame, text="Lancer DFS", command=self.run_dfs).pack(fill=tk.X, padx=5, pady=10)
         tk.Button(leftFrame, text="Lancer BFS", command=self.run_bfs).pack(fill=tk.X, padx=5, pady=2)
         
-        # Liste pour afficher les nœuds créés
         tk.Label(leftFrame, text="Liste des Nœuds :").pack(pady=(10, 0))
         self.nodeListbox = tk.Listbox(leftFrame, height=15)
         self.nodeListbox.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
