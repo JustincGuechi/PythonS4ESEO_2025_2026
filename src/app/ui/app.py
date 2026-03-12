@@ -62,7 +62,7 @@ class GraphExplorerApp:
         
         tk.Button(topFrame, text="Nouveau", command=self.new_graph).pack(side=tk.LEFT, padx=5)
         tk.Button(topFrame, text="Charger", command=self.load_graph).pack(side=tk.LEFT, padx=5)
-        tk.Button(topFrame, text="Sauver", command=self.save_graph).pack(side=tk.LEFT, padx=5)
+        tk.Button(topFrame, text= "Sauvegarder", command=self.save_graph).pack(side=tk.LEFT, padx=5)
 
 
     def new_graph(self):
