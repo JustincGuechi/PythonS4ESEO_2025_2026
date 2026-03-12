@@ -67,24 +67,22 @@ class GraphExplorerApp:
         background_label.place(x=0, y=0, relwidth=1, relheight=1)
         topFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
         topFrame.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
-
-        self.root.config(bg='#B3928D')
-
+        
+        
         tk.Button(topFrame, text="Nouveau", command=self.new_graph).pack(side=tk.LEFT, padx=5)
         tk.Button(topFrame, text="Charger", command=self.load_graph).pack(side=tk.LEFT, padx=5)
         tk.Button(topFrame, text= "Sauvegarder", command=self.save_graph).pack(side=tk.LEFT, padx=5)
-
-        topFrame.config(bg='#B3928D')
         
         bottomFrame = tk.Frame(self.root, relief=tk.SUNKEN, bd=1)
         bottomFrame.pack(side=tk.BOTTOM, fill=tk.X)
         
+        self.statusVariable = tk.StringVar()
         self.statusVariable.set("Statut : Prêt. En attente de création d'un graphe.")
         tk.Label(bottomFrame, textvariable=self.statusVariable, anchor=tk.W).pack(side=tk.LEFT, padx=5, pady=2)
 
         leftFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
         leftFrame.pack(side=tk.LEFT, fill=tk.Y, padx=5, pady=5)
-
+        
         tk.Label(leftFrame, text="Outils & Nœuds", font=("Arial", 10, "bold")).pack(pady=5)
         
         tk.Button(leftFrame, text="+ Ajouter Nœud", command=self.add_node).pack(fill=tk.X, padx=5, pady=2)
@@ -93,20 +91,20 @@ class GraphExplorerApp:
         tk.Button(leftFrame, text="Lancer BFS", command=self.run_bfs).pack(fill=tk.X, padx=5, pady=2)
         
         tk.Label(leftFrame, text="Liste des Nœuds :").pack(pady=(10, 0))
-        self.nodeListbox = tk.Listbox(leftFrame, height=15)
-        self.nodeListbox.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
+        self.node_listbox = tk.Listbox(leftFrame, height=15)
+        self.node_listbox.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
 
         rightFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
         rightFrame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=5, pady=5)
         
-        # Le Canvas est la zone de dessin de Tkinter (fond blanc par défaut pour bien voir les graphes)
         self.canvas = tk.Canvas(rightFrame, bg="white", cursor="crosshair")
         self.canvas.pack(fill=tk.BOTH, expand=True)
-        
-        # Bouton pour nettoyer spécifiquement la zone de dessin
+
         tk.Button(rightFrame, text="Effacer le dessin", command=self.clear_canvas).pack(side=tk.BOTTOM, pady=5)
 
         bottomFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
+
+        self.canvas.config(bg='#B3928D')
 
     def new_graph(self):
         """Crée un nouveau graphe vide."""
