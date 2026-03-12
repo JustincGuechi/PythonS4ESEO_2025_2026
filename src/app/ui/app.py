@@ -57,12 +57,27 @@ class GraphExplorerApp:
         # tk.Button(top_frame, text="Sauver", command=self.save_graph).pack(side=tk.LEFT)
         # ...
 
+        self.root.config(bg='#B3928D')
+
+        self.bg_image = tk.PhotoImage(file="C:/Users/coudryni/Documents/licensed-image.png")
+
+        background_label = tk.Label(self.root, image=self.bg_image)
+
+        background_label.place(x=0, y=0, relwidth=1, relheight=1)
         topFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
         topFrame.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
         
         tk.Button(topFrame, text="Nouveau", command=self.new_graph).pack(side=tk.LEFT, padx=5)
         tk.Button(topFrame, text="Charger", command=self.load_graph).pack(side=tk.LEFT, padx=5)
-        tk.Button(topFrame, text="Sauver", command=self.save_graph).pack(side=tk.LEFT, padx=5)
+        tk.Button(topFrame, text= "Sauvegarder", command=self.save_graph).pack(side=tk.LEFT, padx=5)
+
+        topFrame.config(bg='#B3928D')
+        
+        rightFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
+
+        leftFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
+
+        bottomFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
 
 
     def new_graph(self):
