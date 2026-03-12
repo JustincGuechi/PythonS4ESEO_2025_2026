@@ -58,7 +58,7 @@ class GraphExplorerApp:
         # tk.Button(top_frame, text="Sauver", command=self.save_graph).pack(side=tk.LEFT)
         # ...
 
-        #self.root.config(bg='#B3928D')
+        self.root.config(bg='#B3928D')
 
         self.bg_image = tk.PhotoImage(file="C:/Users/coudryni/Documents/licensed-image.png")
 
