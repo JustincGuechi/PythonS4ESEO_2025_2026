@@ -109,7 +109,6 @@ class GraphExplorerApp:
         self.graph = Graph()
         self.clear_canvas()
         
-        
     def load_graph(self):
         """Charge un graphe depuis un fichier JSON."""
         # TODO: implémenter
