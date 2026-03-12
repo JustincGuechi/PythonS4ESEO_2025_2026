@@ -88,8 +88,8 @@ class GraphExplorerApp:
         tk.Button(leftFrame, text="Lancer BFS", command=self.run_bfs).pack(fill=tk.X, padx=5, pady=2)
         
         tk.Label(leftFrame, text="Liste des Nœuds :").pack(pady=(10, 0))
-        self.node_listbox = tk.Listbox(leftFrame, height=15)
-        self.node_listbox.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
+        self.node_listframe = tk.Listbox(leftFrame, height=15)
+        self.node_listframe.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
 
         rightFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
         rightFrame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=5, pady=5)
