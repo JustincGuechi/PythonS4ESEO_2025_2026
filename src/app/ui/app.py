@@ -64,6 +64,8 @@ class GraphExplorerApp:
         # TODO: implémenter
         self.graph = Graph()
         self.clear_canvas()
+        self.node_listframe.delete(0, tk.END)
+        self.statusVariable.set("Nouveau graphe créé avec succès.")
         
         
     def load_graph(self):
