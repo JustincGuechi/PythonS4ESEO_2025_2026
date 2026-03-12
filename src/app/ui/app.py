@@ -9,7 +9,7 @@ Palier F - Séances 6-8.
 import tkinter as tk
 from tkinter import messagebox, filedialog
 from ..core import Graph
-
+from tkinter.colorchooser import askcolor
 
 class GraphExplorerApp:
     """
@@ -64,6 +64,13 @@ class GraphExplorerApp:
         tk.Button(topFrame, text="Charger", command=self.load_graph).pack(side=tk.LEFT, padx=5)
         tk.Button(topFrame, text= "Sauvegarder", command=self.save_graph).pack(side=tk.LEFT, padx=5)
 
+        topFrame.config(bg='#B3928D')
+        
+        rightFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
+
+        leftFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
+
+        bottomFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
 
     def new_graph(self):
         """Crée un nouveau graphe vide."""
