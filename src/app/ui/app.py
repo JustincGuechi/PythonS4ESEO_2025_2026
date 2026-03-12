@@ -58,13 +58,10 @@ class GraphExplorerApp:
         # tk.Button(top_frame, text="Sauver", command=self.save_graph).pack(side=tk.LEFT)
         # ...
 
-        
+        #self.bg_image = tk.PhotoImage(file="C:/Users/coudryni/Documents/licensed-image.png")
+        #background_label = tk.Label(self.root, image=self.bg_image)
+        #background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-        self.bg_image = tk.PhotoImage(file="C:/Users/coudryni/Documents/licensed-image.png")
-
-        background_label = tk.Label(self.root, image=self.bg_image)
-
-        background_label.place(x=0, y=0, relwidth=1, relheight=1)
         topFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
         topFrame.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
         
@@ -104,7 +101,7 @@ class GraphExplorerApp:
 
         bottomFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
 
-        self.canvas.config(bg='#B3928D')
+        self.canvas.config(bg='#9AD0E6')
 
     def new_graph(self):
         """Crée un nouveau graphe vide."""
