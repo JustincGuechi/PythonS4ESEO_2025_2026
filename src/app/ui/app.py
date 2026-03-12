@@ -58,7 +58,7 @@ class GraphExplorerApp:
         # tk.Button(top_frame, text="Sauver", command=self.save_graph).pack(side=tk.LEFT)
         # ...
 
-        self.root.config(bg='#B3928D')
+        
 
         self.bg_image = tk.PhotoImage(file="C:/Users/coudryni/Documents/licensed-image.png")
 
@@ -67,7 +67,9 @@ class GraphExplorerApp:
         background_label.place(x=0, y=0, relwidth=1, relheight=1)
         topFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
         topFrame.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
-        
+
+        self.root.config(bg='#B3928D')
+
         tk.Button(topFrame, text="Nouveau", command=self.new_graph).pack(side=tk.LEFT, padx=5)
         tk.Button(topFrame, text="Charger", command=self.load_graph).pack(side=tk.LEFT, padx=5)
         tk.Button(topFrame, text= "Sauvegarder", command=self.save_graph).pack(side=tk.LEFT, padx=5)
@@ -77,8 +79,6 @@ class GraphExplorerApp:
         bottomFrame = tk.Frame(self.root, relief=tk.SUNKEN, bd=1)
         bottomFrame.pack(side=tk.BOTTOM, fill=tk.X)
         
-        # Une variable de texte que l'on pourra modifier facilement plus tard dans le code
-        self.statusVariable = tk.StringVar()
         self.statusVariable.set("Statut : Prêt. En attente de création d'un graphe.")
         tk.Label(bottomFrame, textvariable=self.statusVariable, anchor=tk.W).pack(side=tk.LEFT, padx=5, pady=2)
 
