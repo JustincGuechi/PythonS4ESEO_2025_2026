@@ -94,8 +94,8 @@ class GraphExplorerApp:
         
         # Liste pour afficher les nœuds créés
         tk.Label(leftFrame, text="Liste des Nœuds :").pack(pady=(10, 0))
-        self.node_listbox = tk.Listbox(leftFrame, height=15)
-        self.node_listbox.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
+        self.nodeListbox = tk.Listbox(leftFrame, height=15)
+        self.nodeListbox.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
 
         rightFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
         rightFrame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=5, pady=5)
