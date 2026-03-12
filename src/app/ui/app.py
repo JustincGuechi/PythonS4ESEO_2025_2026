@@ -10,6 +10,7 @@ import tkinter as tk
 from tkinter import messagebox, filedialog
 from ..core import Graph
 from tkinter.colorchooser import askcolor
+from tkinter import *
 
 class GraphExplorerApp:
     """
@@ -57,6 +58,13 @@ class GraphExplorerApp:
         # tk.Button(top_frame, text="Sauver", command=self.save_graph).pack(side=tk.LEFT)
         # ...
 
+        #self.root.config(bg='#B3928D')
+
+        self.bg_image = tk.PhotoImage(file="C:/Users/coudryni/Documents/licensed-image.png")
+
+        background_label = tk.Label(self.root, image=self.bg_image)
+
+        background_label.place(x=0, y=0, relwidth=1, relheight=1)
         topFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
         topFrame.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
         
