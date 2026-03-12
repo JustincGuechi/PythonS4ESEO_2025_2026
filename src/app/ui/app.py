@@ -56,19 +56,32 @@ class GraphExplorerApp:
         # tk.Button(top_frame, text="Charger", command=self.load_graph).pack(side=tk.LEFT)
         # tk.Button(top_frame, text="Sauver", command=self.save_graph).pack(side=tk.LEFT)
         # ...
+
+        topFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
+        topFrame.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
         
-        pass
-    
+        tk.Button(topFrame, text="Nouveau", command=self.new_graph).pack(side=tk.LEFT, padx=5)
+        tk.Button(topFrame, text="Charger", command=self.load_graph).pack(side=tk.LEFT, padx=5)
+        tk.Button(topFrame, text="Sauver", command=self.save_graph).pack(side=tk.LEFT, padx=5)
+
+
     def new_graph(self):
         """Crée un nouveau graphe vide."""
         # TODO: implémenter
-        pass
-    
+        self.graph = Graph()
+        self.clear_canvas()
+        
+        
     def load_graph(self):
         """Charge un graphe depuis un fichier JSON."""
         # TODO: implémenter
         # Astuce : utiliser filedialog.askopenfilename()
-        pass
+        chemin_fichier = filedialog.askopenfilename(
+        title="Sélectionner le fichier du graphe",
+        filetypes=[("Fichiers JSON", "*.json"), ("Tous les fichiers", "*.*")])
+    
+        if not chemin_fichier:
+            return None
     
     def save_graph(self):
         """Sauvegarde le graphe actuel en JSON."""
