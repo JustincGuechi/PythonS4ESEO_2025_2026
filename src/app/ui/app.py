@@ -69,7 +69,7 @@ class GraphExplorerApp:
         topFrame.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
         
         tk.Button(topFrame, text="Nouveau", command=self.new_graph).pack(side=tk.LEFT, padx=5)
-        tk.Button(topFrame, text="Charger", command=self.load_graph).pack(side=tk.LEFT, padx=5)
+        tk.Button(topFrame, text="CHARGER! CHARGER! CHARGER! CHARGER! BRRRRRRRRRRRRR", command=self.load_graph).pack(side=tk.LEFT, padx=5)
         tk.Button(topFrame, text= "Sauvegarder", command=self.save_graph).pack(side=tk.LEFT, padx=5)
 
         topFrame.config(bg='#B3928D')
@@ -104,7 +104,25 @@ class GraphExplorerApp:
         """Sauvegarde le graphe actuel en JSON."""
         # TODO: implémenter
         # Astuce : utiliser filedialog.asksaveasfilename()
-        pass
+        if self.current_file_path:
+
+            import os
+            initial_name = os.path.basename(self.current_file_path).split('.')[0] + "_modifie.png"
+
+    
+        file_path = filedialog.asksaveasfilename(
+            initialfile=initial_name,
+            defaultextension=".png",
+            filetypes=[("PNG Image", "*.png"), ("PDF Document", "*.pdf"), ("Tous les fichiers", "*.*")]
+        )
+        
+        if file_path:
+            try:
+                self.fig.savefig(file_path)
+                self.current_file_path = file_path
+                messagebox.showinfo("Succès", f"Fichier enregistré :\n{file_path}")
+            except Exception as e:
+                messagebox.showerror("Erreur", f"Erreur lors de la sauvegarde : {e}")
     
     def add_node(self):
         """Ajoute un nœud au graphe (via dialogue)."""
