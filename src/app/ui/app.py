@@ -150,8 +150,13 @@ class GraphExplorerApp:
         """Ajoute un nœud au graphe (via dialogue)."""
         # TODO: implémenter
         # Astuce : utiliser tk.simpledialog.askstring()
+        from tkinter import simpledialog
+
+        
+        
         pass
-    
+
+
     def add_edge(self):
         """Ajoute une arête au graphe (via dialogue)."""
         # TODO: implémenter
