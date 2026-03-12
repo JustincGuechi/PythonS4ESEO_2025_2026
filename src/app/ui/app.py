@@ -80,6 +80,8 @@ class GraphExplorerApp:
 
         bottomFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
 
+        bottomFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
+
     def new_graph(self):
         """Crée un nouveau graphe vide."""
         # TODO: implémenter
