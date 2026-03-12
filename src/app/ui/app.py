@@ -74,7 +74,7 @@ class GraphExplorerApp:
         bottomFrame.pack(side=tk.BOTTOM, fill=tk.X)
         
         self.statusVariable = tk.StringVar()
-        self.statusVariable.set("Statut : Prêt. En attente de création d'un graphe.")
+        self.statusVariable.set("Statut : En attente de création d'un graphe")
         tk.Label(bottomFrame, textvariable=self.statusVariable, anchor=tk.W).pack(side=tk.LEFT, padx=5, pady=2)
 
         leftFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
