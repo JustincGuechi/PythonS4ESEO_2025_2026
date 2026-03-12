@@ -77,7 +77,7 @@ class GraphExplorerApp:
         # TODO: implémenter
         # Astuce : utiliser filedialog.askopenfilename()
         chemin_fichier = filedialog.askopenfilename(
-        title="Sélectionner le fichier du graphe",
+        title="Sélectionner le fichier du graph",
         filetypes=[("Fichiers JSON", "*.json"), ("Tous les fichiers", "*.*")])
     
         if not chemin_fichier:
