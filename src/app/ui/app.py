@@ -9,7 +9,8 @@ Palier F - Séances 6-8.
 import tkinter as tk
 from tkinter import messagebox, filedialog
 from ..core import Graph
-
+from tkinter.colorchooser import askcolor
+from tkinter import *
 
 class GraphExplorerApp:
     """
@@ -79,17 +80,25 @@ class GraphExplorerApp:
 
         bottomFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
 
+        bottomFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
 
     def new_graph(self):
         """Crée un nouveau graphe vide."""
         # TODO: implémenter
-        pass
-    
+        self.graph = Graph()
+        self.clear_canvas()
+        
+        
     def load_graph(self):
         """Charge un graphe depuis un fichier JSON."""
         # TODO: implémenter
         # Astuce : utiliser filedialog.askopenfilename()
-        pass
+        chemin_fichier = filedialog.askopenfilename(
+        title="Sélectionner le fichier du graph",
+        filetypes=[("Fichiers JSON", "*.json"), ("Tous les fichiers", "*.*")])
+    
+        if not chemin_fichier:
+            return None
     
     def save_graph(self):
         """Sauvegarde le graphe actuel en JSON."""
