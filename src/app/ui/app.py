@@ -84,11 +84,9 @@ class GraphExplorerApp:
 
         leftFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
         leftFrame.pack(side=tk.LEFT, fill=tk.Y, padx=5, pady=5)
-        
-        # Titre de la section
+
         tk.Label(leftFrame, text="Outils & Nœuds", font=("Arial", 10, "bold")).pack(pady=5)
         
-        # Boutons d'édition et d'algorithmes (liés aux fonctions que tu as déjà définies vides)
         tk.Button(leftFrame, text="+ Ajouter Nœud", command=self.add_node).pack(fill=tk.X, padx=5, pady=2)
         tk.Button(leftFrame, text="+ Ajouter Arête", command=self.add_edge).pack(fill=tk.X, padx=5, pady=2)
         tk.Button(leftFrame, text="Lancer DFS", command=self.run_dfs).pack(fill=tk.X, padx=5, pady=10)
