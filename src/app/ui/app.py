@@ -109,7 +109,7 @@ class GraphExplorerApp:
         self.graph = Graph()
         self.clear_canvas()
         self.node_listframe.delete(0, tk.END)
-        self.statusVariable.set("Nouveau graphe créé avec succès.")
+        self.statusVariable.set("Nouveau graphe créé")
         
     def load_graph(self):
         """Charge un graphe depuis un fichier JSON."""
