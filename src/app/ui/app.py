@@ -94,7 +94,7 @@ class GraphExplorerApp:
         rightFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
         rightFrame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=5, pady=5)
         
-        self.canvas = tk.Canvas(rightFrame, bg="white", cursor="crosshair")
+        self.canvas = tk.Canvas(rightFrame, bg="white", cursor="spraycan")
         self.canvas.pack(fill=tk.BOTH, expand=True)
 
         tk.Button(rightFrame, text="Effacer le dessin", command=self.clear_canvas).pack(side=tk.BOTTOM, pady=5)
