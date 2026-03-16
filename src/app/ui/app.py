@@ -160,7 +160,21 @@ class GraphExplorerApp:
     def add_edge(self):
         """Ajoute une arête au graphe (via dialogue)."""
         # TODO: implémenter
-        pass
+        u=simpledialog.askstring("Arête","Nœud de départ: ",parent=self.root)
+        if not u: 
+            return 
+        
+        v=simpledialog.askstring("Arête","Nœud d'arrivée: ",parent=self.root)
+        if not v: 
+            return 
+
+        if u in self.graph.nodes() and v in self.graph.nodes():
+            self.graph.add_edge(u, v)
+            self.draw_graph()
+            print(f"Arête ajoutée entre {u} et {v}")
+        else:
+            from tkinter import messagebox
+            messagebox.showerror("Erreur","L'un des nœuds n'existe pas.")
     
     def run_dfs(self):
         """Lance DFS et visualise le résultat."""
