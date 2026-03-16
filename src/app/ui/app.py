@@ -181,6 +181,7 @@ class GraphExplorerApp:
         # TODO: implémenter
         # Astuce : appeler core.algorithms.dfs()
         # puis render.py pour visualiser
+
         start_node=simpledialog.askstring("DFS","Entrez le nœud de départ: ")
         
         if start_node and start_node in self.graph.nodes():
@@ -192,8 +193,10 @@ class GraphExplorerApp:
     def run_bfs(self):
         """Lance BFS et visualise le résultat."""
         # TODO: implémenter
-        pass
-    
+
+        start_node=simpledialog.askstring("DFS","Entrez le nœud de départ: ")
+        resultat = self.graph.bfs(start_node)
+
     def clear_canvas(self):
         """Efface le canvas."""
         # TODO: implémenter
