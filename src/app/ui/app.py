@@ -152,7 +152,12 @@ class GraphExplorerApp:
         # TODO: implémenter
         # Astuce : utiliser tk.simpledialog.askstring()
         
-        pass
+        nom_noeud=tk.simpledialog.askstring("Ajouter un noeud","Noeud à ajouter", parent=self.root)
+        if nom_noeud:
+            if nom_noeud not in self.graph.nodes():
+                self.graph.add_node(nom_noeud)
+            else:
+                print(f"Le noeud {nom_noeud} existe déjà!")
 
 
     def add_edge(self):
@@ -165,7 +170,7 @@ class GraphExplorerApp:
         # TODO: implémenter
         # Astuce : appeler core.algorithms.dfs()
         # puis render.py pour visualiser
-        start_node=simpledialog.askstring("DFS","Entrez le nœud de départ: ")
+        start_node=simpledialog.askstring("DFS","Entrez le nœud de départ: "+" "*50)
         
         if start_node and start_node in self.graph.nodes():
             visited_nodes = core.algorithms.dfs(self.graph, start_node)
