@@ -195,8 +195,20 @@ class GraphExplorerApp:
         # TODO: implémenter
 
         start_node=simpledialog.askstring("DFS","Entrez le nœud de départ: ")
-        resultat = self.graph.bfs(start_node)
 
+        if not start_node or not start_node.strip():
+            return start_node = start_node.strip()
+
+        try :
+            resultat = self.graph.bfs(start_node)
+            if isinstance(resultat, list):
+                chemin_str = " -> ".join([str(n) for n in resultat])
+            else:
+                chemin_str = str(resultat)
+
+        except Exception as e:
+            messagebox.showerror("Erreur BFS", f"Impossible d'exécuter le BFS :\n{e}")
+    
     def clear_canvas(self):
         """Efface le canvas."""
         # TODO: implémenter
