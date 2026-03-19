@@ -151,7 +151,8 @@ class GraphExplorerApp:
         """Ajoute un nœud au graphe (via dialogue)."""
         # TODO: implémenter
         # Astuce : utiliser tk.simpledialog.askstring()
-        nom_noeud = tk.simpledialog.askstring("Ajouter un noeud", "Noeud à ajouter", parent=self.root)
+
+        nom_noeud = simpledialog.askstring("Ajouter un noeud", "Noeud à ajouter", parent=self.root)
         
         if nom_noeud and nom_noeud.strip():
             nom_noeud = nom_noeud.strip()
@@ -159,10 +160,9 @@ class GraphExplorerApp:
             if nom_noeud not in self.graph.nodes():
                 self.graph.add_node(nom_noeud)
                 self.node_listframe.insert(tk.END, nom_noeud)
-                self.statusVariable.set(f"Nœud '{nom_noeud}' ajouté.")
+                self.statusVariable.set(f"Nœud '{nom_noeud}' ajouté avec succès.")
             else:
-                messagebox.showwarning("Attention, le noeud existe déjà !")
-
+                messagebox.showwarning("Attention", f"Le noeud '{nom_noeud}' existe déjà !")
     
     def add_edge(self):
         """Ajoute une arête au graphe (via dialogue)."""
