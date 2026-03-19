@@ -262,7 +262,8 @@ class GraphExplorerApp:
         """Affiche des infos sur le graphe actuel."""
         # TODO: implémenter
         # Exemple : nombre de nœuds, arêtes, connexité...
-        pass
+        
+    
 
 
 def main():
