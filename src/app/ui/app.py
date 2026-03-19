@@ -11,6 +11,7 @@ from tkinter import messagebox, filedialog
 from ..core import Graph
 from tkinter.colorchooser import askcolor
 from tkinter import *
+from tkinter import simpledialog
 
 class GraphExplorerApp:
     """
@@ -94,7 +95,7 @@ class GraphExplorerApp:
         rightFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
         rightFrame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=5, pady=5)
         
-        self.canvas = tk.Canvas(rightFrame, bg="white", cursor="spraycan")
+        self.canvas = tk.Canvas(rightFrame, bg="white", cursor="crosshair")
         self.canvas.pack(fill=tk.BOTH, expand=True)
 
         tk.Button(rightFrame, text="Effacer le dessin", command=self.clear_canvas).pack(side=tk.BOTTOM, pady=5)
@@ -150,9 +151,6 @@ class GraphExplorerApp:
         """Ajoute un nœud au graphe (via dialogue)."""
         # TODO: implémenter
         # Astuce : utiliser tk.simpledialog.askstring()
-        from tkinter import simpledialog
-
-        
         
         pass
 
@@ -176,18 +174,44 @@ class GraphExplorerApp:
             from tkinter import messagebox
             messagebox.showerror("Erreur","L'un des nœuds n'existe pas.")
     
+        depart = simpledialog.askstring("Nouvelle Arête", "Entrez le nom du nœud de départ:")
+        if not depart or not depart.strip():
+            return 
+            depart = depart.strip
+
+        arrivee = simpledialog.askstring("Nouvelle Arête", "Entrez le nom du nœud d'arrivée':")
+        if not arrivee or not arrivee.strip():
+            return 
+            arrivee = arrivee.strip
+
+        try :
+            self.graph.add_edge(depart, arrivee)
+            self.statusVariable.set(f"Arête ajoutée avec succès : {source} -> {cible}")
+
+        except Exception as e:
+            messagebox.showerror("Erreur d'ajout", "Impossible de créer l'arête")
+
     def run_dfs(self):
         """Lance DFS et visualise le résultat."""
         # TODO: implémenter
         # Astuce : appeler core.algorithms.dfs()
         # puis render.py pour visualiser
-        pass
+
+        start_node=simpledialog.askstring("DFS","Entrez le nœud de départ: ")
+        
+        if start_node and start_node in self.graph.nodes():
+            visited_nodes = core.algorithms.dfs(self.graph, start_node)
+            self.draw_graph(highlight_nodes=visited_nodes)
+        else:
+            print("Nœud invalide ou opération annulée.")
     
     def run_bfs(self):
         """Lance BFS et visualise le résultat."""
         # TODO: implémenter
-        pass
-    
+
+        start_node=simpledialog.askstring("DFS","Entrez le nœud de départ: ")
+        resultat = self.graph.bfs(start_node)
+
     def clear_canvas(self):
         """Efface le canvas."""
         # TODO: implémenter
