@@ -196,7 +196,7 @@ class GraphExplorerApp:
         start_node=simpledialog.askstring("DFS","Entrez le nœud de départ: "+" "*50)
         
         if start_node and start_node in self.graph.nodes():
-            visited_nodes = core.algorithms.dfs(self.graph, start_node)
+            visited_nodes = algorithms.dfs(self.graph, start_node)
             self.draw_graph(highlight_nodes=visited_nodes)
         else:
             print("Nœud invalide ou opération annulée.")
