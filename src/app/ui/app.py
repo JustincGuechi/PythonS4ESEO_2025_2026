@@ -162,21 +162,23 @@ class GraphExplorerApp:
     def add_edge(self):
         """Ajoute une arête au graphe (via dialogue)."""
         # TODO: implémenter
-        u=simpledialog.askstring("Arête","Nœud de départ: ",parent=self.root)
-        if not u: 
-            return 
         
-        v=simpledialog.askstring("Arête","Nœud d'arrivée: ",parent=self.root)
-        if not v: 
+        depart = simpledialog.askstring("Nouvelle Arête", "Entrez le nom du nœud de départ:")
+        if not depart or not depart.strip():
             return 
+            depart = depart.strip
 
-        if u in self.graph.nodes() and v in self.graph.nodes():
-            self.graph.add_edge(u, v)
-            self.draw_graph()
-            print(f"Arête ajoutée entre {u} et {v}")
-        else:
-            from tkinter import messagebox
-            messagebox.showerror("Erreur","L'un des nœuds n'existe pas.")
+        arrivee = simpledialog.askstring("Nouvelle Arête", "Entrez le nom du nœud d'arrivée':")
+        if not arrivee or not arrivee.strip():
+            return 
+            arrivee = arrivee.strip
+
+        try :
+            self.graph.add_edge(depart, arrivee)
+            self.statusVariable.set(f"Arête ajoutée avec succès : {source} -> {cible}")
+
+        except Exception as e:
+            messagebox.showerror("Erreur d'ajout", "Impossible de créer l'arête")
     
         depart = simpledialog.askstring("Nouvelle Arête", "Entrez le nom du nœud de départ:")
         if not depart or not depart.strip():
