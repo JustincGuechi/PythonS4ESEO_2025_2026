@@ -199,22 +199,25 @@ class GraphExplorerApp:
         except Exception as e:
             messagebox.showerror("Erreur d'ajout", "Impossible de créer l'arête")
     
-        depart = simpledialog.askstring("Nouvelle Arête", "Entrez le nom du nœud de départ:")
-        if not depart or not depart.strip():
+        u = simpledialog.askstring("Arête", "Nœud de départ :", parent=self.root)
+        if not u or not u.strip(): 
             return 
-            depart = depart.strip
-
-        arrivee = simpledialog.askstring("Nouvelle Arête", "Entrez le nom du nœud d'arrivée':")
-        if not arrivee or not arrivee.strip():
+        u = u.strip()
+        
+        v = simpledialog.askstring("Arête", f"Relier '{u}' à quel nœud d'arrivée ? :", parent=self.root)
+        if not v or not v.strip(): 
             return 
-            arrivee = arrivee.strip
+        v = v.strip()
 
-        try :
-            self.graph.add_edge(depart, arrivee)
-            self.statusVariable.set(f"Arête ajoutée avec succès : {source} -> {cible}")
-
-        except Exception as e:
-            messagebox.showerror("Erreur d'ajout", "Impossible de créer l'arête")
+        if u in self.graph.nodes() and v in self.graph.nodes():
+            try:
+                self.graph.add_edge(u, v)
+                self.statusVariable.set(f"Arête ajoutée avec succès : {u} -> {v}")
+                
+            except Exception as e:
+                messagebox.showerror("Erreur d'ajout", f"Impossible de créer l'arête :\n{e}")
+        else:
+            messagebox.showerror("Erreur", "L'un des nœuds (ou les deux) n'existe pas. Créez-les d'abord !")
 
     def run_dfs(self):
         """Lance DFS et visualise le résultat."""
