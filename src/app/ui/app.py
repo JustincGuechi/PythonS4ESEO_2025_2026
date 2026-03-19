@@ -251,7 +251,7 @@ class GraphExplorerApp:
         self.graph.clear()
         self.ax.clear()
         self.canvas.draw()
-        print("Canevas réinitialisé.")
+        print("Canvas réinitialisé.")
     
     def show_info(self):
         """Affiche des infos sur le graphe actuel."""
