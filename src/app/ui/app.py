@@ -9,6 +9,7 @@ Palier F - Séances 6-8.
 import tkinter as tk
 from tkinter import messagebox, filedialog
 from ..core import Graph
+from ..core import algorithms
 from tkinter.colorchooser import askcolor
 from tkinter import *
 from tkinter import simpledialog
