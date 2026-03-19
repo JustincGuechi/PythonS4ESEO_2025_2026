@@ -9,6 +9,7 @@ Palier F - Séances 6-8.
 import tkinter as tk
 from tkinter import messagebox, filedialog
 from ..core import Graph
+from ..core import algorithms
 from tkinter.colorchooser import askcolor
 from tkinter import *
 from tkinter import simpledialog
@@ -166,39 +167,27 @@ class GraphExplorerApp:
     def add_edge(self):
         """Ajoute une arête au graphe (via dialogue)."""
         # TODO: implémenter
-        u=simpledialog.askstring("Arête","Nœud de départ: ",parent=self.root)
-        if not u: 
+
+        u = simpledialog.askstring("Arête", "Nœud de départ :", parent=self.root)
+        if not u or not u.strip(): 
             return 
+        u = u.strip()
         
-        v=simpledialog.askstring("Arête","Nœud d'arrivée: ",parent=self.root)
-        if not v: 
+        v = simpledialog.askstring("Arête", f"Relier '{u}' à quel nœud d'arrivée ? :", parent=self.root)
+        if not v or not v.strip(): 
             return 
+        v = v.strip()
 
         if u in self.graph.nodes() and v in self.graph.nodes():
-            self.graph.add_edge(u, v)
-            self.draw_graph()
-            print(f"Arête ajoutée entre {u} et {v}")
+            try:
+                self.graph.add_edge(u, v)
+                self.statusVariable.set(f"Arête ajoutée avec succès : {u} -> {v}")
+                
+            except Exception as e:
+                messagebox.showerror("Erreur d'ajout", f"Impossible de créer l'arête :\n{e}")
         else:
-            from tkinter import messagebox
-            messagebox.showerror("Erreur","L'un des nœuds n'existe pas.")
-    
-        depart = simpledialog.askstring("Nouvelle Arête", "Entrez le nom du nœud de départ:")
-        if not depart or not depart.strip():
-            return 
-            depart = depart.strip
-
-        arrivee = simpledialog.askstring("Nouvelle Arête", "Entrez le nom du nœud d'arrivée':")
-        if not arrivee or not arrivee.strip():
-            return 
-            arrivee = arrivee.strip
-
-        try :
-            self.graph.add_edge(depart, arrivee)
-            self.statusVariable.set(f"Arête ajoutée avec succès : {source} -> {cible}")
-
-        except Exception as e:
-            messagebox.showerror("Erreur d'ajout", "Impossible de créer l'arête")
-
+            messagebox.showerror("Erreur", "L'un des nœuds (ou les deux) n'existe pas. Créez-les d'abord !")
+            
     def run_dfs(self):
         """Lance DFS et visualise le résultat."""
         # TODO: implémenter
@@ -236,7 +225,10 @@ class GraphExplorerApp:
     def clear_canvas(self):
         """Efface le canvas."""
         # TODO: implémenter
-        pass
+        self.graph.clear()
+        self.ax.clear()
+        self.canvas.draw()
+        print("Canvas réinitialisé.")
     
     def show_info(self):
         """Affiche des infos sur le graphe actuel."""
