@@ -197,7 +197,8 @@ class GraphExplorerApp:
         start_node=simpledialog.askstring("DFS","Entrez le nœud de départ: ")
 
         if not start_node or not start_node.strip():
-            return start_node = start_node.strip()
+            return
+        start_node = start_node.strip()
 
         try :
             resultat = self.graph.bfs(start_node)
