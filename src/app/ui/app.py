@@ -248,11 +248,11 @@ class GraphExplorerApp:
     def clear_canvas(self):
         """Efface le canvas."""
         # TODO: implémenter
+        self.canvas.delete("all")
         self.graph.clear()
-        self.ax.clear()
-        self.canvas.draw()
-        print("Canvas réinitialisé.")
-    
+        self.node_listframe.delete(0, tk.END)
+        self.statusVariable.set("Canvas effacé et graphe réinitialisé.")
+        
     def show_info(self):
         """Affiche des infos sur le graphe actuel."""
         # TODO: implémenter
