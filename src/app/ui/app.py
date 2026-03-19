@@ -193,8 +193,7 @@ class GraphExplorerApp:
         # TODO: implémenter
         # Astuce : appeler core.algorithms.dfs()
         # puis render.py pour visualiser
-
-        start_node=simpledialog.askstring("DFS","Entrez le nœud de départ: ")
+        start_node=simpledialog.askstring("DFS","Entrez le nœud de départ: "+" "*50)
         
         if start_node and start_node in self.graph.nodes():
             visited_nodes = core.algorithms.dfs(self.graph, start_node)
