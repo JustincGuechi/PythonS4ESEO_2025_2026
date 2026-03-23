@@ -233,7 +233,30 @@ class GraphExplorerApp:
         """Affiche des infos sur le graphe actuel."""
         # TODO: implémenter
         # Exemple : nombre de nœuds, arêtes, connexité...
-        pass
+        
+        nodes = list(self.graph.nodes())
+        nb_nodes = len(nodes)
+        
+        try:
+            edges = list(self.graph.edges())
+            nb_edges = len(edges)
+        except AttributeError:
+            nb_edges = "Inconnu"
+
+        if nb_nodes == 0:
+            message = "Le graphe est actuellement complètement vide.\nCommencez par ajouter des nœuds !"
+        else:
+            message = "Statistiques de votre graphe :\n\n"
+            message += f"Nombre de nœuds : {nb_nodes}\n"
+            message += f"Nombre d'arêtes : {nb_edges}\n\n"
+
+            if nb_nodes <= 20:
+                nodes_list = ", ".join([str(n) for n in nodes])
+                message += f"📍 Liste des nœuds :\n{nodes_list}"
+            else:
+                message += "📍 Liste des nœuds : (Trop nombreux pour l'affichage)"
+
+        messagebox.showinfo("Informations du Graphe", message)
 
 
 def main():
