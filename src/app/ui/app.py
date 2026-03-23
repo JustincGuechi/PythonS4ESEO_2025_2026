@@ -216,14 +216,20 @@ class GraphExplorerApp:
         start_node = start_node.strip()
 
         try :
-            resultat = self.graph.bfs(start_node)
-            if isinstance(resultat, list):
-                chemin_str = " -> ".join([str(n) for n in resultat])
-            else:
-                chemin_str = str(resultat)
+            visited_nodes = self.controller.execute_bfs(start_node)
+            positions = render.auto_layout(self.graph, self.canvas.winfo_width(), self.canvas.winfo_height())
+            render.draw_graph(self.canvas, self.graph, positions)
+            render.animate_traversal(self.canvas, visited_nodes, positions, delay_ms=500)
+            chemin_str = " -> ".join([str(n) for n in visited_nodes])
+            messagebox.showinfo("Résultat BFS", f"Chemin (Largeur) :\n{chemin_str}")
+            self.statusVariable.set(f"BFS depuis '{start_node}' terminé.")
 
+        except ValueError as e:
+            # Le contrôleur a détecté un problème (ex: nœud inexistant)
+            messagebox.showwarning("Erreur", str(e))
         except Exception as e:
-            messagebox.showerror("Erreur BFS", f"Impossible d'exécuter le BFS :\n{e}")
+            # S'il y a un autre type de bug dans le code
+            messagebox.showerror("Erreur inattendue", f"Impossible d'exécuter le BFS :\n{e}")
     
     def clear_canvas(self):
         """Efface le canvas."""
