@@ -43,7 +43,16 @@ class GraphController:
         """
         # TODO: implémenter
         # Validation + appel à core.algorithms.dfs()
-        pass
+
+        nodes = self.graph.nodes()
+        
+        if not nodes:
+            raise ValueError("Le graphe est vide, impossible de lancer un parcours.")
+
+        if start not in nodes:
+            raise ValueError("Le nœud de départ n'existe pas dans le graphe.")
+            
+        return dfs(self.graph, start)
     
     def execute_bfs(self, start: str) -> list[str]:
         """
