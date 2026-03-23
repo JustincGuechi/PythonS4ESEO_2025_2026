@@ -132,4 +132,26 @@ class GraphController:
         """
         # TODO: implémenter
         # density = 2 * edges / (nodes * (nodes - 1)) pour graphe non orienté
-        pass
+
+        nodes = list(self.graph.nodes())
+        nb_nodes = len(nodes)
+
+        try:
+            edges = list(self.graph.edges())
+            nb_edges = len(edges)
+        except AttributeError:
+            nb_edges = 0
+
+        connected = self.check_connectivity()
+        
+        if nb_nodes > 1:
+            density = (2 * nb_edges) / (nb_nodes * (nb_nodes - 1))
+        else:
+            density = 0.0 
+            
+        return {
+            'nodes': nb_nodes,
+            'edges': nb_edges,
+            'connected': connected,
+            'density': round(density, 2) 
+        }
