@@ -13,6 +13,7 @@ from ..core import algorithms
 from tkinter.colorchooser import askcolor
 from tkinter import *
 from tkinter import simpledialog
+from . import render
 
 class GraphExplorerApp:
     """
@@ -252,9 +253,9 @@ class GraphExplorerApp:
 
             if nb_nodes <= 20:
                 nodes_list = ", ".join([str(n) for n in nodes])
-                message += f"📍 Liste des nœuds :\n{nodes_list}"
+                message += f"Liste des nœuds :\n{nodes_list}"
             else:
-                message += "📍 Liste des nœuds : (Trop nombreux pour l'affichage)"
+                message += "Liste des nœuds : (Trop nombreux pour l'affichage)"
 
         messagebox.showinfo("Informations du Graphe", message)
 
