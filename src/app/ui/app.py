@@ -14,6 +14,7 @@ from tkinter.colorchooser import askcolor
 from tkinter import *
 from tkinter import simpledialog
 from . import render
+from .controller import GraphController
 
 class GraphExplorerApp:
     """
