@@ -202,13 +202,9 @@ class GraphExplorerApp:
 
         try :
             visited_nodes = self.controller.execute_bfs(start_node)
-            
-            # Animation
             positions = render.auto_layout(self.graph, self.canvas.winfo_width(), self.canvas.winfo_height())
             render.draw_graph(self.canvas, self.graph, positions)
             render.animate_traversal(self.canvas, visited_nodes, positions, delay_ms=500)
-            
-            # Pop-up de résultat
             chemin_str = " -> ".join([str(n) for n in visited_nodes])
             messagebox.showinfo("Résultat BFS", f"Chemin (Largeur) :\n{chemin_str}")
             self.statusVariable.set(f"BFS depuis '{start_node}' terminé.")
