@@ -43,8 +43,16 @@ class GraphController:
         """
         # TODO: implémenter
         # Validation + appel à core.algorithms.dfs()
-        pass
-    
+        if start not in self.graph:
+            raise ValueError(f"Noeud {start} n'existe pas.")
+
+        try:
+            ordre_visite=core.algorithms.dfs(self.graph,start)
+            return ordre_visite
+
+        except Exception as e:
+            raise ValueError("Erreur lors de l'exécution de la DFS")
+
     def execute_bfs(self, start: str) -> list[str]:
         """
         Exécute BFS et retourne l'ordre de visite.
@@ -56,7 +64,16 @@ class GraphController:
             Liste des nœuds visités
         """
         # TODO: implémenter
-        pass
+
+        if start not in self.graph:
+            raise ValueError(f"Noeud {start} n'existe pas.")
+
+        try:
+            ordre_visite=core.algorithms.bfs(self.graph,start)
+            return ordre_visite
+
+        except Exception as e:
+            raise ValueError("Erreur lors de l'exécution de la DFS")
     
     def find_shortest_path(self, start: str, goal: str) -> list[str] | None:
         """

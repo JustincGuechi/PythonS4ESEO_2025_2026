@@ -13,6 +13,8 @@ from ..core import algorithms
 from tkinter.colorchooser import askcolor
 from tkinter import *
 from tkinter import simpledialog
+from . import render
+from .controller import GraphController
 
 class GraphExplorerApp:
     """
@@ -38,6 +40,8 @@ class GraphExplorerApp:
         
         # Graphe actuel
         self.graph = Graph()
+        
+        self.controller = GraphController(self.graph)
         
         # Configuration de l'interface
         self._setup_ui()
@@ -220,28 +224,57 @@ class GraphExplorerApp:
         start_node = start_node.strip()
 
         try :
-            resultat = self.graph.bfs(start_node)
-            if isinstance(resultat, list):
-                chemin_str = " -> ".join([str(n) for n in resultat])
-            else:
-                chemin_str = str(resultat)
+            visited_nodes = self.controller.execute_bfs(start_node)
+            positions = render.auto_layout(self.graph, self.canvas.winfo_width(), self.canvas.winfo_height())
+            render.draw_graph(self.canvas, self.graph, positions)
+            render.animate_traversal(self.canvas, visited_nodes, positions, delay_ms=500)
+            chemin_str = " -> ".join([str(n) for n in visited_nodes])
+            messagebox.showinfo("Résultat BFS", f"Chemin (Largeur) :\n{chemin_str}")
+            self.statusVariable.set(f"BFS depuis '{start_node}' terminé.")
 
+        except ValueError as e:
+            # Le contrôleur a détecté un problème (ex: nœud inexistant)
+            messagebox.showwarning("Erreur", str(e))
         except Exception as e:
-            messagebox.showerror("Erreur BFS", f"Impossible d'exécuter le BFS :\n{e}")
+            # S'il y a un autre type de bug dans le code
+            messagebox.showerror("Erreur inattendue", f"Impossible d'exécuter le BFS :\n{e}")
     
     def clear_canvas(self):
         """Efface le canvas."""
         # TODO: implémenter
+        self.canvas.delete("all")
         self.graph.clear()
-        self.ax.clear()
-        self.canvas.draw()
-        print("Canvas réinitialisé.")
-    
+        self.node_listframe.delete(0, tk.END)
+        self.statusVariable.set("Canvas effacé et graphe réinitialisé.")
+        
     def show_info(self):
         """Affiche des infos sur le graphe actuel."""
         # TODO: implémenter
         # Exemple : nombre de nœuds, arêtes, connexité...
-        pass
+        
+        nodes = list(self.graph.nodes())
+        nb_nodes = len(nodes)
+        
+        try:
+            edges = list(self.graph.edges())
+            nb_edges = len(edges)
+        except AttributeError:
+            nb_edges = "Inconnu"
+
+        if nb_nodes == 0:
+            message = "Le graphe est actuellement complètement vide.\nCommencez par ajouter des nœuds !"
+        else:
+            message = "Statistiques de votre graphe :\n\n"
+            message += f"Nombre de nœuds : {nb_nodes}\n"
+            message += f"Nombre d'arêtes : {nb_edges}\n\n"
+
+            if nb_nodes <= 20:
+                nodes_list = ", ".join([str(n) for n in nodes])
+                message += f"Liste des nœuds :\n{nodes_list}"
+            else:
+                message += "Liste des nœuds : (Trop nombreux pour l'affichage)"
+
+        messagebox.showinfo("Informations du Graphe", message)
 
 
 def main():
