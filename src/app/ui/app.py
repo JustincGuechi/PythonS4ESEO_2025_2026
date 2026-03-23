@@ -87,6 +87,8 @@ class GraphExplorerApp:
         tk.Button(leftFrame, text="Lancer DFS", command=self.run_dfs).pack(fill=tk.X, padx=5, pady=10)
         tk.Button(leftFrame, text="Lancer BFS", command=self.run_bfs).pack(fill=tk.X, padx=5, pady=2)
         
+        tk.Button(leftFrame, text="Plus court chemin", command=self.run_shortest_path).pack(fill=tk.X, padx=5, pady=10)
+        tk.Button(leftFrame, text="Infos Graphe", command=self.show_info).pack(fill=tk.X, padx=5, pady=2)
         tk.Label(leftFrame, text="Liste des Nœuds :").pack(pady=(10, 0))
         self.node_listframe = tk.Listbox(leftFrame, height=15)
         self.node_listframe.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
