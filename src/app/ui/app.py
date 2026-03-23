@@ -171,27 +171,25 @@ class GraphExplorerApp:
     def add_edge(self):
         """Ajoute une arête au graphe (via dialogue)."""
         # TODO: implémenter
-
         u = simpledialog.askstring("Arête", "Nœud de départ :", parent=self.root)
-        if not u or not u.strip(): 
-            return 
+        if not u or not u.strip(): return 
         u = u.strip()
         
         v = simpledialog.askstring("Arête", f"Relier '{u}' à quel nœud d'arrivée ? :", parent=self.root)
-        if not v or not v.strip(): 
-            return 
+        if not v or not v.strip(): return 
         v = v.strip()
 
         if u in self.graph.nodes() and v in self.graph.nodes():
             try:
                 self.graph.add_edge(u, v)
                 self.statusVariable.set(f"Arête ajoutée avec succès : {u} -> {v}")
-                
+
+                self.draw_graph()
             except Exception as e:
                 messagebox.showerror("Erreur d'ajout", f"Impossible de créer l'arête :\n{e}")
         else:
             messagebox.showerror("Erreur", "L'un des nœuds (ou les deux) n'existe pas. Créez-les d'abord !")
-            
+
     def run_dfs(self):
         """Lance DFS et visualise le résultat."""
         # TODO: implémenter
