@@ -243,13 +243,13 @@ class GraphExplorerApp:
         if stats['nodes'] == 0:
             message = "Le graphe est actuellement complètement vide.\nCommencez par ajouter des nœuds !"
         else:
-            message = "📊 Statistiques de votre graphe :\n\n"
-            message += f"🔹 Nombre de nœuds : {stats['nodes']}\n"
-            message += f"🔹 Nombre d'arêtes : {stats['edges']}\n"
+            message = "Statistiques de votre graphe :\n\n"
+            message += f"Nombre de nœuds : {stats['nodes']}\n"
+            message += f"Nombre d'arêtes : {stats['edges']}\n"
             texte_connexe = "Oui" if stats['connected'] else "Non"
-            message += f"🔹 Graphe connexe : {texte_connexe}\n"
+            message += f"Graphe connexe : {texte_connexe}\n"
             
-            message += f"🔹 Densité : {stats['density']}\n\n"
+            message += f"Densité : {stats['density']}\n\n"
 
             nodes = list(self.graph.nodes())
             if nb_nodes <= 20:
