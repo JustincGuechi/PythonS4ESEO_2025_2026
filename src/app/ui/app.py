@@ -197,13 +197,21 @@ class GraphExplorerApp:
         # TODO: implémenter
         # Astuce : appeler core.algorithms.dfs()
         # puis render.py pour visualiser
-        start_node=simpledialog.askstring("DFS","Entrez le nœud de départ: "+" "*50)
-        
-        if start_node and start_node in self.graph.nodes():
-            visited_nodes = algorithms.dfs(self.graph, start_node)
-            self.draw_graph(highlight_nodes=visited_nodes)
-        else:
-            print("Nœud invalide ou opération annulée.")
+        start_node = simpledialog.askstring("DFS", "Entrez le nœud de départ:")
+        if not start_node or not start_node.strip():
+            return
+        start_node = start_node.strip()
+    
+        try:
+            visited_nodes = self.controller.execute_dfs(start_node)
+            positions = render.auto_layout(self.graph, self.canvas.winfo_width(), self.canvas.winfo_height())
+            render.draw_graph(self.canvas, self.graph, positions)
+            render.animate_traversal(self.canvas, visited_nodes, positions, delay_ms=500)
+            chemin_str = " -> ".join([str(n) for n in visited_nodes])
+            messagebox.showinfo("Résultat DFS", f"Chemin :\n{chemin_str}")
+            
+        except ValueError as e:
+            messagebox.showwarning("Erreur", str(e))
     
     def run_bfs(self):
         """Lance BFS et visualise le résultat."""
