@@ -87,7 +87,19 @@ class GraphController:
             Chemin ou None si aucun chemin
         """
         # TODO: implémenter
-        pass
+
+        noeuds = self.graph.nodes()
+        
+        if not noeuds:
+            raise ValueError("Le graphe est vide.")
+
+        if start not in noeuds:
+            raise ValueError(f"Le nœud de départ '{start}' n'existe pas dans le graphe.")
+
+        if goal not in noeuds:
+            raise ValueError(f"Le nœud d'arrivée '{goal}' n'existe pas dans le graphe.")
+
+        return shortest_path(self.graph, start, goal)
     
     def check_connectivity(self) -> bool:
         """
