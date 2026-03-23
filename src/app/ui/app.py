@@ -9,9 +9,12 @@ Palier F - Séances 6-8.
 import tkinter as tk
 from tkinter import messagebox, filedialog
 from ..core import Graph
+from ..core import algorithms
 from tkinter.colorchooser import askcolor
 from tkinter import *
 from tkinter import simpledialog
+from . import render
+from .controller import GraphController
 
 class GraphExplorerApp:
     """
@@ -37,6 +40,8 @@ class GraphExplorerApp:
         
         # Graphe actuel
         self.graph = Graph()
+        
+        self.controller = GraphController(self.graph)
         
         # Configuration de l'interface
         self._setup_ui()
@@ -150,8 +155,8 @@ class GraphExplorerApp:
     def add_node(self):
         """Ajoute un nœud au graphe (via dialogue)."""
         # TODO: implémenter
-        # Astuce : utiliser tk.simpledialog.askstring()
-        nom_noeud = tk.simpledialog.askstring("Ajouter un noeud", "Noeud à ajouter", parent=self.root)
+
+        nom_noeud = simpledialog.askstring("Ajouter un noeud", "Noeud à ajouter", parent=self.root)
         
         if nom_noeud and nom_noeud.strip():
             nom_noeud = nom_noeud.strip()
@@ -159,46 +164,14 @@ class GraphExplorerApp:
             if nom_noeud not in self.graph.nodes():
                 self.graph.add_node(nom_noeud)
                 self.node_listframe.insert(tk.END, nom_noeud)
-                self.statusVariable.set(f"Nœud '{nom_noeud}' ajouté.")
+                self.statusVariable.set(f"Nœud '{nom_noeud}' ajouté avec succès.")
             else:
-                messagebox.showwarning("Attention, le noeud existe déjà !")
-
+                messagebox.showwarning("Attention", f"Le noeud '{nom_noeud}' existe déjà !")
     
     def add_edge(self):
         """Ajoute une arête au graphe (via dialogue)."""
         # TODO: implémenter
-        u=simpledialog.askstring("Arête","Nœud de départ: ",parent=self.root)
-        if not u: 
-            return 
-        
-        v=simpledialog.askstring("Arête","Nœud d'arrivée: ",parent=self.root)
-        if not v: 
-            return 
 
-        if u in self.graph.nodes() and v in self.graph.nodes():
-            self.graph.add_edge(u, v)
-            self.draw_graph()
-            print(f"Arête ajoutée entre {u} et {v}")
-        else:
-            from tkinter import messagebox
-            messagebox.showerror("Erreur","L'un des nœuds n'existe pas.")
-        depart = simpledialog.askstring("Nouvelle Arête", "Entrez le nom du nœud de départ:")
-        if not depart or not depart.strip():
-            return 
-            depart = depart.strip
-
-        arrivee = simpledialog.askstring("Nouvelle Arête", "Entrez le nom du nœud d'arrivée':")
-        if not arrivee or not arrivee.strip():
-            return 
-            arrivee = arrivee.strip
-
-        try :
-            self.graph.add_edge(depart, arrivee)
-            self.statusVariable.set(f"Arête ajoutée avec succès : {source} -> {cible}")
-
-        except Exception as e:
-            messagebox.showerror("Erreur d'ajout", "Impossible de créer l'arête")
-    
         u = simpledialog.askstring("Arête", "Nœud de départ :", parent=self.root)
         if not u or not u.strip(): 
             return 
@@ -218,17 +191,16 @@ class GraphExplorerApp:
                 messagebox.showerror("Erreur d'ajout", f"Impossible de créer l'arête :\n{e}")
         else:
             messagebox.showerror("Erreur", "L'un des nœuds (ou les deux) n'existe pas. Créez-les d'abord !")
-
+            
     def run_dfs(self):
         """Lance DFS et visualise le résultat."""
         # TODO: implémenter
         # Astuce : appeler core.algorithms.dfs()
         # puis render.py pour visualiser
-
-        start_node=simpledialog.askstring("DFS","Entrez le nœud de départ: ")
+        start_node=simpledialog.askstring("DFS","Entrez le nœud de départ: "+" "*50)
         
         if start_node and start_node in self.graph.nodes():
-            visited_nodes = core.algorithms.dfs(self.graph, start_node)
+            visited_nodes = algorithms.dfs(self.graph, start_node)
             self.draw_graph(highlight_nodes=visited_nodes)
         else:
             print("Nœud invalide ou opération annulée.")
@@ -256,14 +228,39 @@ class GraphExplorerApp:
     def clear_canvas(self):
         """Efface le canvas."""
         # TODO: implémenter
-        pass
-    
+        self.canvas.delete("all")
+        self.graph.clear()
+        self.node_listframe.delete(0, tk.END)
+        self.statusVariable.set("Canvas effacé et graphe réinitialisé.")
+        
     def show_info(self):
         """Affiche des infos sur le graphe actuel."""
         # TODO: implémenter
         # Exemple : nombre de nœuds, arêtes, connexité...
         
-    
+        nodes = list(self.graph.nodes())
+        nb_nodes = len(nodes)
+        
+        try:
+            edges = list(self.graph.edges())
+            nb_edges = len(edges)
+        except AttributeError:
+            nb_edges = "Inconnu"
+
+        if nb_nodes == 0:
+            message = "Le graphe est actuellement complètement vide.\nCommencez par ajouter des nœuds !"
+        else:
+            message = "Statistiques de votre graphe :\n\n"
+            message += f"Nombre de nœuds : {nb_nodes}\n"
+            message += f"Nombre d'arêtes : {nb_edges}\n\n"
+
+            if nb_nodes <= 20:
+                nodes_list = ", ".join([str(n) for n in nodes])
+                message += f"Liste des nœuds :\n{nodes_list}"
+            else:
+                message += "Liste des nœuds : (Trop nombreux pour l'affichage)"
+
+        messagebox.showinfo("Informations du Graphe", message)
 
 
 def main():
