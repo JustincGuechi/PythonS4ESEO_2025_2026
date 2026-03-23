@@ -233,10 +233,8 @@ class GraphExplorerApp:
             self.statusVariable.set(f"BFS depuis '{start_node}' terminé.")
 
         except ValueError as e:
-            # Le contrôleur a détecté un problème (ex: nœud inexistant)
             messagebox.showwarning("Erreur", str(e))
         except Exception as e:
-            # S'il y a un autre type de bug dans le code
             messagebox.showerror("Erreur inattendue", f"Impossible d'exécuter le BFS :\n{e}")
     
     def clear_canvas(self):
