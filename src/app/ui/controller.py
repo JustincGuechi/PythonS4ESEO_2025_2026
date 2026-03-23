@@ -97,7 +97,11 @@ class GraphController:
             True si connexe, False sinon
         """
         # TODO: implémenter
-        pass
+        
+        if not self.graph.nodes():
+            return False
+
+        return is_connected(self.graph)
     
     def get_graph_info(self) -> dict:
         """
