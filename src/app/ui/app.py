@@ -9,9 +9,12 @@ Palier F - Séances 6-8.
 import tkinter as tk
 from tkinter import messagebox, filedialog
 from ..core import Graph
+from ..core import algorithms
 from tkinter.colorchooser import askcolor
 from tkinter import *
 from tkinter import simpledialog
+from . import render
+from .controller import GraphController
 
 class GraphExplorerApp:
     """
@@ -37,6 +40,8 @@ class GraphExplorerApp:
         
         # Graphe actuel
         self.graph = Graph()
+        
+        self.controller = GraphController(self.graph)
         
         # Configuration de l'interface
         self._setup_ui()
@@ -150,11 +155,19 @@ class GraphExplorerApp:
     def add_node(self):
         """Ajoute un nœud au graphe (via dialogue)."""
         # TODO: implémenter
-        # Astuce : utiliser tk.simpledialog.askstring()
+
+        nom_noeud = simpledialog.askstring("Ajouter un noeud", "Noeud à ajouter", parent=self.root)
         
-        pass
-
-
+        if nom_noeud and nom_noeud.strip():
+            nom_noeud = nom_noeud.strip()
+            
+            if nom_noeud not in self.graph.nodes():
+                self.graph.add_node(nom_noeud)
+                self.node_listframe.insert(tk.END, nom_noeud)
+                self.statusVariable.set(f"Nœud '{nom_noeud}' ajouté avec succès.")
+            else:
+                messagebox.showwarning("Attention", f"Le noeud '{nom_noeud}' existe déjà !")
+    
     def add_edge(self):
         """Ajoute une arête au graphe (via dialogue)."""
         # TODO: implémenter
@@ -182,32 +195,80 @@ class GraphExplorerApp:
         # TODO: implémenter
         # Astuce : appeler core.algorithms.dfs()
         # puis render.py pour visualiser
-
-        start_node=simpledialog.askstring("DFS","Entrez le nœud de départ: ")
-        
-        if start_node and start_node in self.graph.nodes():
-            visited_nodes = core.algorithms.dfs(self.graph, start_node)
-            self.draw_graph(highlight_nodes=visited_nodes)
-        else:
-            print("Nœud invalide ou opération annulée.")
+        start_node = simpledialog.askstring("DFS", "Entrez le nœud de départ:")
+        if not start_node or not start_node.strip():
+            return
+        start_node = start_node.strip()
+    
+        try:
+            visited_nodes = self.controller.execute_dfs(start_node)
+            positions = render.auto_layout(self.graph, self.canvas.winfo_width(), self.canvas.winfo_height())
+            render.draw_graph(self.canvas, self.graph, positions)
+            render.animate_traversal(self.canvas, visited_nodes, positions, delay_ms=500)
+            chemin_str = " -> ".join([str(n) for n in visited_nodes])
+            messagebox.showinfo("Résultat DFS", f"Chemin :\n{chemin_str}")
+            
+        except ValueError as e:
+            messagebox.showwarning("Erreur", str(e))
     
     def run_bfs(self):
         """Lance BFS et visualise le résultat."""
         # TODO: implémenter
 
         start_node=simpledialog.askstring("DFS","Entrez le nœud de départ: ")
-        resultat = self.graph.bfs(start_node)
 
+        if not start_node or not start_node.strip():
+            return
+        start_node = start_node.strip()
+
+        try :
+            visited_nodes = self.controller.execute_bfs(start_node)
+            positions = render.auto_layout(self.graph, self.canvas.winfo_width(), self.canvas.winfo_height())
+            render.draw_graph(self.canvas, self.graph, positions)
+            render.animate_traversal(self.canvas, visited_nodes, positions, delay_ms=500)
+            chemin_str = " -> ".join([str(n) for n in visited_nodes])
+            messagebox.showinfo("Résultat BFS", f"Chemin (Largeur) :\n{chemin_str}")
+            self.statusVariable.set(f"BFS depuis '{start_node}' terminé.")
+
+        except ValueError as e:
+            messagebox.showwarning("Erreur", str(e))
+        except Exception as e:
+            messagebox.showerror("Erreur inattendue", f"Impossible d'exécuter le BFS :\n{e}")
+    
     def clear_canvas(self):
         """Efface le canvas."""
         # TODO: implémenter
-        pass
-    
+        self.canvas.delete("all")
+        self.graph.clear()
+        self.node_listframe.delete(0, tk.END)
+        self.statusVariable.set("Canvas effacé et graphe réinitialisé.")
+        
     def show_info(self):
         """Affiche des infos sur le graphe actuel."""
         # TODO: implémenter
         # Exemple : nombre de nœuds, arêtes, connexité...
-        pass
+        
+        stats = self.controller.get_graph_info()
+
+        if stats['nodes'] == 0:
+            message = "Le graphe est actuellement complètement vide.\nCommencez par ajouter des nœuds !"
+        else:
+            message = "Statistiques de votre graphe :\n\n"
+            message += f"Nombre de nœuds : {stats['nodes']}\n"
+            message += f"Nombre d'arêtes : {stats['edges']}\n"
+            texte_connexe = "Oui" if stats['connected'] else "Non"
+            message += f"Graphe connexe : {texte_connexe}\n"
+            
+            message += f"Densité : {stats['density']}\n\n"
+
+            nodes = list(self.graph.nodes())
+            if nb_nodes <= 20:
+                nodes_list = ", ".join([str(n) for n in nodes])
+                message += f"Liste des nœuds :\n{nodes_list}"
+            else:
+                message += "Liste des nœuds : (Trop nombreux pour l'affichage)"
+
+        messagebox.showinfo("Informations du Graphe", message)
 
 
 def main():
