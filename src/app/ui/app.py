@@ -41,6 +41,8 @@ class GraphExplorerApp:
         # Graphe actuel
         self.graph = Graph()
         
+        self.controller = GraphController(self.graph)
+        
         # Configuration de l'interface
         self._setup_ui()
     
