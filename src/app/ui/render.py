@@ -66,38 +66,25 @@ def highlight_path(canvas: tk.Canvas, path: list[str], positions: dict[str, tupl
     """
     # TODO: implémenter
     # Astuce : redessiner les nœuds du chemin avec NODE_COLOR_VISITED
-    if not path:
+
+    if not path or len(path) == 0:
         return
 
-    for node1, node2 in zip(path[:-1], path[1:]):
-        
-        if node1 in positions and node2 in positions:
-            x1, y1 = positions[node1]
-            x2, y2 = positions[node2]
-            
-            canvas.create_line(
-                x1, y1, x2, y2, 
-                fill=EDGE_COLOR_VISITED, 
-                width=EDGE_WIDTH_VISITED
-            )
+    for i in range(len(path) - 1):
+        u = path[i]
+        v = path[i+1]
+        if u in positions and v in positions:
+            x1, y1 = positions[u]
+            x2, y2 = positions[v]
+            canvas.create_line(x1, y1, x2, y2, width=EDGE_WIDTH + 2, fill=NODE_COLOR_VISITED)
 
-    rayon = 15 
-    for noeud in path:
-        if noeud in positions:
-            x, y = positions[noeud]
-            canvas.create_oval(
-                x - rayon, y - rayon, 
-                x + rayon, y + rayon, 
-                fill=NODE_COLOR_VISITED,      
-                outline=NODE_OUTLINE_VISITED, 
-                width=3                      
-            )
-            
-            canvas.create_text(
-                x, y, 
-                text=noeud, 
-                fill="black", font=("Arial", 10, "bold")
-            )
+    for node in path:
+        if node in positions:
+            x, y = positions[node]
+            r = NODE_RADIUS
+            canvas.create_oval(x-r, y-r, x+r, y+r, fill=NODE_COLOR_VISITED, outline="black", width=2)
+            canvas.create_text(x, y, text=str(node), fill=TEXT_COLOR, font=("Arial", 10, "bold"))
+
 
 
 def animate_traversal(canvas: tk.Canvas, order: list[str], positions: dict[str, tuple[int, int]], delay_ms: int = 500):
