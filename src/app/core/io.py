@@ -157,6 +157,7 @@ def dict_to_graph(data: dict) -> Graph:
     #    - Vérifier que a et b existent dans nodes
     #    - Ajouter l'arête
     # 5. Gérer les exceptions proprement
+    
     if "nodes" not in data or "edges" not in data:
         raise KeyError("Le dictionnaire doit contenir les clés 'nodes' et 'edges'.")  
 
