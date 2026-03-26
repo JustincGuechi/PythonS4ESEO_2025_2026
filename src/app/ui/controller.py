@@ -69,10 +69,12 @@ class GraphController:
         """
         # TODO: implémenter
 
-        if start not in self.graph.nodes():
-            raise ValueError("le graph est vide")
+        noeuds = self.graph.nodes()
 
-        if start not in self.graph.nodes():
+        if not noeuds:
+            raise ValueError("Le graphe est vide.")
+
+        if start not in noeuds:
             raise ValueError(f"Noeud '{start}' n'existe pas.")
 
         try:
