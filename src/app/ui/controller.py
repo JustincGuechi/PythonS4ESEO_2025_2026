@@ -44,10 +44,12 @@ class GraphController:
         # TODO: implémenter
         # Validation + appel à core.algorithms.dfs()
 
-        if not self.graph.nodes():
+       noeuds = self.graph.nodes()
+
+        if not noeuds:
             raise ValueError("Le graphe est vide.")
-            
-        if start not in self.graph.nodes():
+
+        if start not in noeuds:
             raise ValueError(f"Noeud '{start}' n'existe pas.")
             
         try:
@@ -56,7 +58,7 @@ class GraphController:
             
         except Exception as e:
             raise ValueError(f"Erreur lors de l'exécution de la DFS : {e}")
-
+            
     def execute_bfs(self, start: str) -> list[str]:
         """
         Exécute BFS et retourne l'ordre de visite.
