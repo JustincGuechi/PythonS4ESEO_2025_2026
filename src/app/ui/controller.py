@@ -43,7 +43,7 @@ class GraphController:
         """
         # TODO: implémenter
         # Validation + appel à core.algorithms.dfs()
-        if start not in self.graph:
+        if start not in self.graph.nodes():
             raise ValueError(f"Noeud {start} n'existe pas.")
 
         try:
