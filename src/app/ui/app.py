@@ -142,25 +142,29 @@ class GraphExplorerApp:
         """Sauvegarde le graphe actuel en JSON."""
         # TODO: implémenter
         # Astuce : utiliser filedialog.asksaveasfilename()
-        if self.current_file_path:
 
-            import os
-            initial_name = os.path.basename(self.current_file_path).split('.')[0] + "_modifie.png"
-
-    
         file_path = filedialog.asksaveasfilename(
-            initialfile=initial_name,
-            defaultextension=".png",
-            filetypes=[("PNG Image", "*.png"), ("PDF Document", "*.pdf"), ("Tous les fichiers", "*.*")]
+            defaultextension=".json",
+            filetypes=[("Fichiers JSON", "*.json"), ("Tous les fichiers", "*.*")]
         )
         
-        if file_path:
-            try:
-                self.fig.savefig(file_path)
-                self.current_file_path = file_path
-                messagebox.showinfo("Succès", f"Fichier enregistré :\n{file_path}")
-            except Exception as e:
-                messagebox.showerror("Erreur", f"Erreur lors de la sauvegarde : {e}")
+        if not file_path:
+            return 
+            
+        try:
+            edges_list = list(self.graph.edges()) if hasattr(self.graph, 'edges') else []
+            
+            donnees_graphe = {
+                "nodes": list(self.graph.nodes()),
+                "edges": edges_list
+            }
+            with open(file_path, 'w', encoding='utf-8') as f:
+                json.dump(donnees_graphe, f, indent=4)
+            self.statusVariable.set("Graphe sauvegardé avec succès.")
+            messagebox.showinfo("Succès", f"Graphe enregistré dans :\n{file_path}")
+            
+        except Exception as e:
+            messagebox.showerror("Erreur de sauvegarde", f"Impossible d'enregistrer le graphe :\n{e}")
     
     def add_node(self):
         """Ajoute un nœud au graphe (via dialogue)."""
