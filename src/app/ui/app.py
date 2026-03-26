@@ -248,8 +248,10 @@ class GraphExplorerApp:
     def clear_canvas(self):
         """Efface le canvas."""
         # TODO: implémenter
+        
         self.canvas.delete("all")
-        self.graph.clear()
+        self.graph = Graph()
+        self.controller = GraphController(self.graph)
         self.node_listframe.delete(0, tk.END)
         self.statusVariable.set("Canvas effacé et graphe réinitialisé.")
         
