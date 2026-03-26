@@ -43,9 +43,13 @@ class GraphController:
         """
         # TODO: implémenter
         # Validation + appel à core.algorithms.dfs()
-        if start not in self.graph.nodes():
-            raise ValueError(f"Noeud {start} n'existe pas.")
 
+        if not self.graph.nodes():
+            raise ValueError("Le graphe est vide.")
+            
+        if start not in self.graph.nodes():
+            raise ValueError(f"Noeud '{start}' n'existe pas.")
+            
         try:
             ordre_visite=core.algorithms.dfs(self.graph,start)
             return ordre_visite
