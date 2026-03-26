@@ -109,6 +109,13 @@ class GraphExplorerApp:
 
         self.canvas.config(bg='#9AD0E6')
 
+    def draw_graph(self):
+        """Dessine le graphe sur le Canvas via le module render."""
+        # On calcule les positions automatiques
+        positions = render.auto_layout(self.graph, self.canvas.winfo_width(), self.canvas.winfo_height())
+        # On dessine le graphe
+        render.draw_graph(self.canvas, self.graph, positions)
+        
     def new_graph(self):
         """Crée un nouveau graphe vide."""
         # TODO: implémenter
