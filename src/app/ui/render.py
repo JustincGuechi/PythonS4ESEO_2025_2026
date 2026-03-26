@@ -49,7 +49,21 @@ def draw_graph(canvas: tk.Canvas, graph: Graph, positions: dict[str, tuple[int, 
     # Astuce pour dessiner du texte:
     # canvas.create_text(x, y, text=label, fill=color)
     
-    pass
+    canvas.delete("all")
+    
+    for u, v in graph.edges():
+        if u in positions and v in positions:
+            x1, y1 = positions[u]
+            x2, y2 = positions[v]
+            canvas.create_line(x1, y1, x2, y2, width=EDGE_WIDTH, fill=EDGE_COLOR)
+        
+    for node in graph.nodes():
+        if node in positions:
+            x, y = positions[node]
+            r = NODE_RADIUS
+            
+            canvas.create_oval(x-r, y-r, x+r, y+r, fill=NODE_COLOR, outline="black")
+            canvas.create_text(x, y, text=str(node), fill=TEXT_COLOR, font=("Arial", 10, "bold"))
 
 
 def highlight_path(canvas: tk.Canvas, path: list[str], positions: dict[str, tuple[int, int]]):
