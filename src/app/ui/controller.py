@@ -43,8 +43,16 @@ class GraphController:
         """
         # TODO: implémenter
         # Validation + appel à core.algorithms.dfs()
-        pass
-    
+        if start not in self.graph:
+            raise ValueError(f"Noeud {start} n'existe pas.")
+
+        try:
+            ordre_visite=core.algorithms.dfs(self.graph,start)
+            return ordre_visite
+
+        except Exception as e:
+            raise ValueError("Erreur lors de l'exécution de la DFS")
+
     def execute_bfs(self, start: str) -> list[str]:
         """
         Exécute BFS et retourne l'ordre de visite.
@@ -56,7 +64,16 @@ class GraphController:
             Liste des nœuds visités
         """
         # TODO: implémenter
-        pass
+
+        if start not in self.graph:
+            raise ValueError(f"Noeud {start} n'existe pas.")
+
+        try:
+            ordre_visite=core.algorithms.bfs(self.graph,start)
+            return ordre_visite
+
+        except Exception as e:
+            raise ValueError("Erreur lors de l'exécution de la DFS")
     
     def find_shortest_path(self, start: str, goal: str) -> list[str] | None:
         """
@@ -70,7 +87,19 @@ class GraphController:
             Chemin ou None si aucun chemin
         """
         # TODO: implémenter
-        pass
+
+        noeuds = self.graph.nodes()
+        
+        if not noeuds:
+            raise ValueError("Le graphe est vide.")
+
+        if start not in noeuds:
+            raise ValueError(f"Le nœud de départ '{start}' n'existe pas dans le graphe.")
+
+        if goal not in noeuds:
+            raise ValueError(f"Le nœud d'arrivée '{goal}' n'existe pas dans le graphe.")
+
+        return shortest_path(self.graph, start, goal)
     
     def check_connectivity(self) -> bool:
         """
@@ -80,7 +109,11 @@ class GraphController:
             True si connexe, False sinon
         """
         # TODO: implémenter
-        pass
+        
+        if not self.graph.nodes():
+            return False
+
+        return is_connected(self.graph)
     
     def get_graph_info(self) -> dict:
         """
@@ -99,4 +132,26 @@ class GraphController:
         """
         # TODO: implémenter
         # density = 2 * edges / (nodes * (nodes - 1)) pour graphe non orienté
-        pass
+
+        nodes = list(self.graph.nodes())
+        nb_nodes = len(nodes)
+
+        try:
+            edges = list(self.graph.edges())
+            nb_edges = len(edges)
+        except AttributeError:
+            nb_edges = 0
+
+        connected = self.check_connectivity()
+        
+        if nb_nodes > 1:
+            density = (2 * nb_edges) / (nb_nodes * (nb_nodes - 1))
+        else:
+            density = 0.0 
+            
+        return {
+            'nodes': nb_nodes,
+            'edges': nb_edges,
+            'connected': connected,
+            'density': round(density, 2) 
+        }
