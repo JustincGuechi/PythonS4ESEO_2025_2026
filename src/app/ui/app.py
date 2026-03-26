@@ -79,10 +79,12 @@ class GraphExplorerApp:
         filetypes=[("Fichiers JSON", "*.json"), ("Tous les fichiers", "*.*")])
     
         if not chemin_fichier:
-            return 
-        with open(chemin_fichier, 'r', encoding='utf-8') as f:
-                data = json.load(f)
-                
+            return
+
+        try:
+            with open(chemin_fichier, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                    
             self.clear_canvas()
             if "nodes" in data:
                 for node in data["nodes"]:
