@@ -117,7 +117,34 @@ def animate_traversal(canvas: tk.Canvas, order: list[str], positions: dict[str, 
     """
     # TODO: implémenter (BONUS)
     # Astuce : utiliser canvas.after(delay, callback)
-    pass
+    
+    def step(index):
+        if index < len(order):
+            node = order[index]
+            if node in positions:
+                x, y = positions[node]
+                r = NODE_RADIUS
+
+                canvas.create_oval(x-r, y-r, x+r, y+r, fill=NODE_COLOR_CURRENT, outline="black")
+                canvas.create_text(x, y, text=str(node), fill=TEXT_COLOR, font=("Arial", 10, "bold"))
+                
+                if index > 0:
+                    prev_node = order[index-1]
+                    if prev_node in positions:
+                        px, py = positions[prev_node]
+                        canvas.create_oval(px-r, py-r, px+r, py+r, fill=NODE_COLOR_VISITED, outline="black")
+                        canvas.create_text(px, py, text=str(prev_node), fill=TEXT_COLOR, font=("Arial", 10, "bold"))
+            
+            canvas.after(delay_ms, step, index + 1)
+            
+        elif len(order) > 0:
+            last_node = order[-1]
+            if last_node in positions:
+                x, y = positions[last_node]
+                r = NODE_RADIUS
+                canvas.create_oval(x-r, y-r, x+r, y+r, fill=NODE_COLOR_VISITED, outline="black")
+                canvas.create_text(x, y, text=str(last_node), fill=TEXT_COLOR, font=("Arial", 10, "bold"))
+    step(0)
 
 
 def auto_layout(graph: Graph, width: int = 800, height: int = 600) -> dict[str, tuple[int, int]]:
