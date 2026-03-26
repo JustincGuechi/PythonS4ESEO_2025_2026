@@ -136,7 +136,25 @@ class GraphExplorerApp:
         filetypes=[("Fichiers JSON", "*.json"), ("Tous les fichiers", "*.*")])
     
         if not chemin_fichier:
-            return None
+            return 
+        with open(chemin_fichier, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                
+            self.clear_canvas()
+            if "nodes" in data:
+                for node in data["nodes"]:
+                    self.graph.add_node(node)
+                    self.node_listframe.insert(tk.END, node)
+            if "edges" in data:
+                for edge in data["edges"]:
+                    if len(edge) >= 2:
+                        self.graph.add_edge(edge[0], edge[1])
+            self.draw_graph()
+            self.statusVariable.set(f"Graphe chargé depuis '{chemin_fichier}'")
+            messagebox.showinfo("Succès", "Graphe chargé avec succès !")
+            
+        except Exception as e:
+            messagebox.showerror("Erreur de chargement", f"Impossible de lire le fichier :\n{e}")
     
     def save_graph(self):
         """Sauvegarde le graphe actuel en JSON."""
