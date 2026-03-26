@@ -252,7 +252,7 @@ class GraphExplorerApp:
             message += f"Densité : {stats['density']}\n\n"
 
             nodes = list(self.graph.nodes())
-            if nb_nodes <= 20:
+            if stats['nodes'] <= 20:
                 nodes_list = ", ".join([str(n) for n in nodes])
                 message += f"Liste des nœuds :\n{nodes_list}"
             else:
