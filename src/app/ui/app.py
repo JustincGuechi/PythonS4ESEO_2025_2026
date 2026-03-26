@@ -15,6 +15,7 @@ from tkinter import *
 from tkinter import simpledialog
 from . import render
 from .controller import GraphController
+import json
 
 class GraphExplorerApp:
     """
