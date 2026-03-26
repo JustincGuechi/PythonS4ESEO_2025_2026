@@ -44,12 +44,10 @@ class GraphController:
         # TODO: implémenter
         # Validation + appel à core.algorithms.dfs()
 
-       noeuds = self.graph.nodes()
-
-        if not noeuds:
+        if not self.graph.nodes():
             raise ValueError("Le graphe est vide.")
 
-        if start not in noeuds:
+        if start not in self.graph.nodes():
             raise ValueError(f"Noeud '{start}' n'existe pas.")
             
         try:
