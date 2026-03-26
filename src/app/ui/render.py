@@ -8,7 +8,7 @@ Palier F - Séances 7-8.
 
 import tkinter as tk
 from ..core import Graph
-
+from math import *
 
 # Constantes pour le rendu
 NODE_RADIUS = 20
