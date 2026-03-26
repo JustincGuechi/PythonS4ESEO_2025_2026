@@ -65,7 +65,7 @@ class GraphController:
         """
         # TODO: implémenter
 
-        if start not in self.graph:
+        if start not in self.graph.nodes():
             raise ValueError(f"Noeud {start} n'existe pas.")
 
         try:
