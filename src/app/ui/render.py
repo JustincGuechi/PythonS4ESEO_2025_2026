@@ -138,5 +138,25 @@ def auto_layout(graph: Graph, width: int = 800, height: int = 600) -> dict[str, 
     # TODO: implémenter
     # Astuce : assurer les dimensions minimales
 
+    positions = {}
+    nodes = list(graph.nodes())
+    n = len(nodes)
     
-    pass
+    if n == 0:
+        return positions
+        
+    if width < 400: width = 800
+    if height < 300: height = 600
+    
+    center_x = width / 2
+    center_y = height / 2
+    
+    radius = min(width, height) * 0.40
+    
+    for i, node in enumerate(nodes):
+        angle = i * (2 * math.pi / n)
+        x = center_x + radius * math.cos(angle)
+        y = center_y + radius * math.sin(angle)
+        positions[node] = (int(x), int(y))
+        
+    return positions
