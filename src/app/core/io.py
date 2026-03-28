@@ -40,7 +40,13 @@ def save_graph(graph: Graph, filepath: str | Path) -> None:
     # TODO: implémenter
     # Astuce : utiliser graph.nodes() et graph.edges()
     # Convertir les edges en liste de listes pour JSON
-    pass
+    data = graph_to_dict(graph)
+    
+    try:
+        with open(filepath, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=4)
+    except Exception as e:
+        raise IOError(f"Erreur lors de l'écriture du fichier : {e}")
 
 
 def load_graph(filepath: str | Path) -> Graph:
@@ -76,7 +82,14 @@ def load_graph(filepath: str | Path) -> Graph:
     # 3. Ajouter les nœuds
     # 4. Ajouter les arêtes
     # 5. Gérer les exceptions proprement
-    pass
+    try:
+        with open(filepath, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Le fichier {filepath} n'existe pas.")
+    except json.JSONDecodeError:
+        raise ValueError("Le fichier n'est pas un JSON valide.")
+    return dict_to_graph(data)
 
 
 def graph_to_dict(graph: Graph) -> dict:
@@ -97,7 +110,6 @@ def graph_to_dict(graph: Graph) -> dict:
     """
     # TODO: implémenter
     pass
-
 
 def dict_to_graph(data: dict) -> Graph:
     """
@@ -138,4 +150,21 @@ def dict_to_graph(data: dict) -> Graph:
     #    - Vérifier que a et b existent dans nodes
     #    - Ajouter l'arête
     # 5. Gérer les exceptions proprement
-    pass
+    if "nodes" not in data or "edges" not in data:
+        raise KeyError("Le dictionnaire doit contenir les clés 'nodes' et 'edges'.")  
+
+    g = Graph()
+
+    for node in data["nodes"]:
+        g.add_node(node)
+        
+    for edge in data["edges"]:
+        if len(edge) != 2:
+            raise ValueError(f"Arête invalide (doit contenir 2 éléments) : {edge}") 
+        u, v = edge
+        
+        if u not in data["nodes"] or v not in data["nodes"]:
+            raise ValueError(f"L'arête contient des nœuds non déclarés : {u} ou {v}") 
+        g.add_edge(u, v)
+
+    return g
