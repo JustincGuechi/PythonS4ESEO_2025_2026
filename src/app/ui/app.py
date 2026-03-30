@@ -93,7 +93,7 @@ class GraphExplorerApp:
         tk.Button(leftFrame, text="+ Ajouter Arête", command=self.add_edge).pack(fill=tk.X, padx=5, pady=2)
         tk.Button(leftFrame, text="Lancer DFS", command=self.run_dfs).pack(fill=tk.X, padx=5, pady=10)
         tk.Button(leftFrame, text="Lancer BFS", command=self.run_bfs).pack(fill=tk.X, padx=5, pady=2)
-        tk.Button(leftFrame, text="Plus court chemin", command=self.run_shortest_path).pack(fill=tk.X, padx=5, pady=10)
+        
         tk.Button(leftFrame, text="Infos Graphe", command=self.show_info).pack(fill=tk.X, padx=5, pady=2)
         tk.Label(leftFrame, text="Liste des Nœuds :").pack(pady=(10, 0))
         self.node_listframe = tk.Listbox(leftFrame, height=15)
@@ -267,32 +267,6 @@ class GraphExplorerApp:
             messagebox.showwarning("Erreur", str(e))
         except Exception as e:
             messagebox.showerror("Erreur inattendue", f"Impossible d'exécuter le BFS :\n{e}")
-
-    def run_shortest_path(self):
-        """Trouve et visualise le plus court chemin."""
-        start_node = simpledialog.askstring("Plus court chemin", "Entrez le nœud de DÉPART :", parent=self.root)
-        if not start_node or not start_node.strip(): return
-        start_node = start_node.strip()
-
-        goal_node = simpledialog.askstring("Plus court chemin", f"Aller de '{start_node}' vers quel nœud d'ARRIVÉE ? :", parent=self.root)
-        if not goal_node or not goal_node.strip(): return
-        goal_node = goal_node.strip()
-
-        try:
-            chemin = self.controller.find_shortest_path(start_node, goal_node)
-            positions = render.auto_layout(self.graph, self.canvas.winfo_width(), self.canvas.winfo_height())
-            render.draw_graph(self.canvas, self.graph, positions)
-
-            if chemin:
-                render.highlight_path(self.canvas, chemin, positions)
-                chemin_str = " -> ".join([str(n) for n in chemin])
-                messagebox.showinfo("Chemin Trouvé", f"Le plus court chemin est :\n\n{chemin_str}")
-                self.statusVariable.set(f"Plus court chemin : {start_node} -> {goal_node} ({len(chemin)-1} étapes)")
-            else:
-                messagebox.showinfo("Résultat", f"Aucun chemin possible entre '{start_node}' et '{goal_node}'.")
-                self.statusVariable.set("Aucun chemin trouvé.")
-        except ValueError as e:
-            messagebox.showwarning("Erreur", str(e))
 
     def clear_canvas(self):
         """Efface le canvas."""
