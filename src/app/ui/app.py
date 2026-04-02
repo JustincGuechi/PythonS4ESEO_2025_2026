@@ -143,7 +143,7 @@ class GraphExplorerApp:
 
     def draw_graph(self):
         """Dessine le graphe sur le Canvas via le module render."""
-        
+        self.canvas.delete("all")
         if len(self.graph.nodes()) > 0:
             if not self.current_positions:
                 self.current_positions = render.auto_layout(self.graph, self.canvas.winfo_width(), self.canvas.winfo_height())
