@@ -72,9 +72,8 @@ class GraphExplorerApp:
             self.bg_image = None
             
         self._setup_ui()
-        
         self.load_france_map()
-        self._setup_ui()
+
     
     def _setup_ui(self):
         """Configure tous les widgets de l'interface."""
