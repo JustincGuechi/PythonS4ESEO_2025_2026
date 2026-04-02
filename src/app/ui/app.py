@@ -46,6 +46,13 @@ class GraphExplorerApp:
         
         # Configuration de l'interface
         self._setup_ui()
+        self.current_positions = {}
+        try:
+            self.bg_image = tk.PhotoImage(file="carte_france.png") 
+        except Exception:
+            self.bg_image = None
+            
+        self._setup_ui()
     
     def _setup_ui(self):
         """Configure tous les widgets de l'interface."""
