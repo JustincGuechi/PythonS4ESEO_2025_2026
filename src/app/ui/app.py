@@ -103,7 +103,6 @@ class GraphExplorerApp:
         self.statusVariable = tk.StringVar()
         tk.Label(bottomFrame, textvariable=self.statusVariable, anchor=tk.W).pack(side=tk.LEFT, padx=5, pady=2)
 
-        # --- Frame Gauche (Contrôles) ---
         leftFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
         leftFrame.pack(side=tk.LEFT, fill=tk.Y, padx=5, pady=5)
         
@@ -116,228 +115,33 @@ class GraphExplorerApp:
         self.node_listframe = tk.Listbox(leftFrame, height=20)
         self.node_listframe.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
 
-        # --- Frame Droite (Canvas) ---
         rightFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
         rightFrame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=5, pady=5)
         
-        self.canvas = tk.Canvas(rightFrame, bg="#9AD0E6") # Bleu clair pour la mer si l'image ne couvre pas tout
+        self.canvas = tk.Canvas(rightFrame, bg="#9AD0E6") 
         self.canvas.pack(fill=tk.BOTH, expand=True)
 
     def draw_graph(self):
-        """Dessine le graphe sur le Canvas via le module render."""
+        """Dessine la carte sur le Canvas."""
         self.canvas.delete("all")
-        if len(self.graph.nodes()) > 0:
-            if not self.current_positions:
-                self.current_positions = render.auto_layout(self.graph, self.canvas.winfo_width(), self.canvas.winfo_height())
-
-            render.draw_graph(self.canvas, self.graph, self.current_positions, self.bg_image)
+        render.draw_graph(self.canvas, self.graph, POSITIONS_FRANCE, self.bg_image)
         
-    def new_graph(self):
-        """Crée un nouveau graphe vide."""
-        # TODO: implémenter
+    def load_france_map(self):
+        """Génère la carte de France avec les villes et les routes."""
         self.graph = Graph()
-        self.controller = GraphController(self.graph) 
-        self.current_positions = {}                   
-        
-        self.canvas.delete("all")
+        self.controller = GraphController(self.graph)
         self.node_listframe.delete(0, tk.END)
         
-        self.statusVariable.set("Nouveau graphe créé")
-        
-    def load_graph(self):
-        """Charge un graphe depuis un fichier JSON."""
-        # TODO: implémenter
-        # Astuce : utiliser filedialog.askopenfilename()
-        chemin_fichier = filedialog.askopenfilename(
-        title="Sélectionner le fichier du graph",
-        filetypes=[("Fichiers JSON", "*.json"), ("Tous les fichiers", "*.*")])
-    
-        if not chemin_fichier:
-            return
-
-        try:
-            with open(chemin_fichier, 'r', encoding='utf-8') as f:
-                    data = json.load(f)
-                    
-            self.clear_canvas()
-            if "nodes" in data:
-                for node in data["nodes"]:
-                    self.graph.add_node(node)
-                    self.node_listframe.insert(tk.END, node)
-            if "edges" in data:
-                for edge in data["edges"]:
-                    if len(edge) >= 2:
-                        self.graph.add_edge(edge[0], edge[1])
-            self.draw_graph()
-            self.statusVariable.set(f"Graphe chargé depuis '{chemin_fichier}'")
-            messagebox.showinfo("Succès", "Graphe chargé avec succès !")
-            
-        except Exception as e:
-            messagebox.showerror("Erreur de chargement", f"Impossible de lire le fichier :\n{e}")
-    
-    def save_graph(self):
-        """Sauvegarde le graphe actuel en JSON."""
-        # TODO: implémenter
-        # Astuce : utiliser filedialog.asksaveasfilename()
-
-        file_path = filedialog.asksaveasfilename(
-            defaultextension=".json",
-            filetypes=[("Fichiers JSON", "*.json"), ("Tous les fichiers", "*.*")]
-        )
-        
-        if not file_path:
-            return 
-            
-        try:
-            edges_list = list(self.graph.edges()) if hasattr(self.graph, 'edges') else []
-            
-            donnees_graphe = {
-                "nodes": list(self.graph.nodes()),
-                "edges": edges_list
-            }
-            with open(file_path, 'w', encoding='utf-8') as f:
-                json.dump(donnees_graphe, f, indent=4)
-            self.statusVariable.set("Graphe sauvegardé avec succès.")
-            messagebox.showinfo("Succès", f"Graphe enregistré dans :\n{file_path}")
-            
-        except Exception as e:
-            messagebox.showerror("Erreur de sauvegarde", f"Impossible d'enregistrer le graphe :\n{e}")
-    
-    def add_node(self):
-        """Ajoute un nœud au graphe (via dialogue)."""
-        # TODO: implémenter
-
-        nom_noeud = simpledialog.askstring("Ajouter un noeud", "Noeud à ajouter", parent=self.root)
-        
-        if nom_noeud and nom_noeud.strip():
-            nom_noeud = nom_noeud.strip()
-            if nom_noeud not in self.graph.nodes():
-                self.graph.add_node(nom_noeud)
-                self.node_listframe.insert(tk.END, nom_noeud)
-                self.statusVariable.set(f"Nœud '{nom_noeud}' ajouté avec succès.")
-                self.draw_graph()
-            else:
-                messagebox.showwarning("Attention", f"Le noeud '{nom_noeud}' existe déjà !")
-    
-    def add_edge(self):
-        """Ajoute une arête au graphe (via dialogue)."""
-        # TODO: implémenter
-        u = simpledialog.askstring("Arête", "Nœud de départ :", parent=self.root)
-        if not u or not u.strip(): return 
-        u = u.strip()
-        
-        v = simpledialog.askstring("Arête", f"Relier '{u}' à quel nœud d'arrivée ? :", parent=self.root)
-        if not v or not v.strip(): return 
-        v = v.strip()
-
-        if u in self.graph.nodes() and v in self.graph.nodes():
-            try:
-                self.graph.add_edge(u, v)
-                self.statusVariable.set(f"Arête ajoutée avec succès : {u} -> {v}")
-
-                self.draw_graph()
-            except Exception as e:
-                messagebox.showerror("Erreur d'ajout", f"Impossible de créer l'arête :\n{e}")
-        else:
-            messagebox.showerror("Erreur", "L'un des nœuds (ou les deux) n'existe pas. Créez-les d'abord !")
-
-    def run_dfs(self):
-        """Lance DFS et visualise le résultat."""
-        # TODO: implémenter
-        # Astuce : appeler core.algorithms.dfs()
-        # puis render.py pour visualiser
-        start_node = simpledialog.askstring("DFS", "Entrez le nœud de départ:")
-        if not start_node or not start_node.strip():
-            return
-        start_node = start_node.strip()
-    
-        try:
-            visited_nodes = self.controller.execute_dfs(start_node)
-            positions = render.auto_layout(self.graph, self.canvas.winfo_width(), self.canvas.winfo_height())
-            render.draw_graph(self.canvas, self.graph, positions)
-            render.animate_traversal(self.canvas, visited_nodes, positions, delay_ms=500)
-            chemin_str = " -> ".join([str(n) for n in visited_nodes])
-            messagebox.showinfo("Résultat DFS", f"Chemin :\n{chemin_str}")
-            
-        except ValueError as e:
-            messagebox.showwarning("Erreur", str(e))
-    
-    def run_bfs(self):
-        """Lance BFS et visualise le résultat."""
-        # TODO: implémenter
-
-        start_node=simpledialog.askstring("DFS","Entrez le nœud de départ: ")
-
-        if not start_node or not start_node.strip():
-            return
-        start_node = start_node.strip()
-
-        try :
-            visited_nodes = self.controller.execute_bfs(start_node)
-            positions = render.auto_layout(self.graph, self.canvas.winfo_width(), self.canvas.winfo_height())
-            render.draw_graph(self.canvas, self.graph, positions)
-            render.animate_traversal(self.canvas, visited_nodes, positions, delay_ms=500)
-            chemin_str = " -> ".join([str(n) for n in visited_nodes])
-            messagebox.showinfo("Résultat BFS", f"Chemin (Largeur) :\n{chemin_str}")
-            self.statusVariable.set(f"BFS depuis '{start_node}' terminé.")
-
-        except ValueError as e:
-            messagebox.showwarning("Erreur", str(e))
-        except Exception as e:
-            messagebox.showerror("Erreur inattendue", f"Impossible d'exécuter le BFS :\n{e}")
-
-    def clear_canvas(self):
-        """Efface le canvas."""
-        # TODO: implémenter
-        
-        self.canvas.delete("all")
-        self.statusVariable.set("Canvas effacé")
-        
-    def show_info(self):
-        """Affiche des infos sur le graphe actuel."""
-        # TODO: implémenter
-        # Exemple : nombre de nœuds, arêtes, connexité...
-        
-        stats = self.controller.get_graph_info()
-
-        if stats['nodes'] == 0:
-            message = "Le graphe est actuellement complètement vide.\nCommencez par ajouter des nœuds !"
-        else:
-            message = "Statistiques de votre graphe :\n\n"
-            message += f"Nombre de nœuds : {stats['nodes']}\n"
-            message += f"Nombre d'arêtes : {stats['edges']}\n"
-            texte_connexe = "Oui" if stats['connected'] else "Non"
-            message += f"Graphe connexe : {texte_connexe}\n"
-            
-            message += f"Densité : {stats['density']}\n\n"
-
-            nodes = list(self.graph.nodes())
-            if stats['nodes'] <= 20:
-                nodes_list = ", ".join([str(n) for n in nodes])
-                message += f"Liste des nœuds :\n{nodes_list}"
-            else:
-                message += "Liste des nœuds : (Trop nombreux pour l'affichage)"
-
-        messagebox.showinfo("Informations du Graphe", message)
-
-    def load_france_map(self):
-        """Génère la carte de France avec les 15 grandes villes."""
-        self.new_graph() # Nettoie tout
-        
-        # Ajoute les nœuds
+        # Ajout des nœuds et arêtes
         for ville in VILLES_FRANCE:
             self.graph.add_node(ville)
             self.node_listframe.insert(tk.END, ville)
             
-        # Ajoute les routes
         for u, v in ROUTES_FRANCE:
             self.graph.add_edge(u, v)
             
-        # Applique les positions fixes
-        self.current_positions = POSITIONS_FRANCE
-        
         self.draw_graph()
-        self.statusVariable.set("Carte de France chargée avec les axes principaux.")
+        self.statusVariable.set("Carte prête. Prêt pour le calcul d'itinéraire.")
 
     def run_shortest_path(self):
         """Demande point A et B, et surligne l'itinéraire."""
@@ -347,15 +151,14 @@ class GraphExplorerApp:
         goal = simpledialog.askstring("Itinéraire", "Ville d'arrivée :", parent=self.root)
         if not goal or not goal.strip(): return
 
-        start, goal = start.strip(), goal.strip()
+        start, goal = start.strip().capitalize(), goal.strip().capitalize() # Astuce pour gérer les majuscules
 
         try:
-            # On utilise le contrôleur que tu as brillamment codé !
             path = self.controller.find_shortest_path(start, goal)
             
             if path:
                 self.draw_graph() # Nettoie les anciens dessins
-                render.highlight_path(self.canvas, path, self.current_positions)
+                render.highlight_path(self.canvas, path, POSITIONS_FRANCE)
                 
                 chemin_str = " -> ".join(path)
                 messagebox.showinfo("Itinéraire trouvé !", f"Le plus court chemin est :\n\n{chemin_str}")
@@ -363,15 +166,13 @@ class GraphExplorerApp:
             else:
                 messagebox.showwarning("Introuvable", "Aucune route n'existe entre ces deux villes.")
                 
-        except ValueError as e:
-            messagebox.showerror("Erreur", str(e))
+        except ValueError:
+            messagebox.showerror("Erreur", f"L'une des villes n'est pas sur la carte.\nVérifiez l'orthographe (ex: '{start}' ou '{goal}').")
 
 def main():
-    """Point d'entrée de l'application."""
     root = tk.Tk()
     app = GraphExplorerApp(root)
     root.mainloop()
-
 
 if __name__ == "__main__":
     main()
