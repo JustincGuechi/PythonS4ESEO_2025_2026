@@ -117,6 +117,8 @@ class GraphExplorerApp:
         bottomFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
 
         self.canvas.config(bg='#9AD0E6')
+        tk.Button(leftFrame, text="🌍 Charger Carte France", command=self.load_france_map, bg="#ffcc00").pack(fill=tk.X, padx=5, pady=10)
+        tk.Button(leftFrame, text="📍 Itinéraire (Plus Court Chemin)", command=self.run_shortest_path, bg="#9AD0E6").pack(fill=tk.X, padx=5, pady=2)
 
     def draw_graph(self):
         """Dessine le graphe sur le Canvas via le module render."""
