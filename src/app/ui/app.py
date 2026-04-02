@@ -124,11 +124,9 @@ class GraphExplorerApp:
         """Dessine le graphe sur le Canvas via le module render."""
         self.clear_canvas()
         if len(self.graph.nodes()) > 0:
-            # Si on a pas de positions fixes (graphe normal), on calcule le cercle
             if not self.current_positions:
                 self.current_positions = render.auto_layout(self.graph, self.canvas.winfo_width(), self.canvas.winfo_height())
-            
-            # On passe l'image de fond à la fonction de dessin
+
             render.draw_graph(self.canvas, self.graph, self.current_positions, self.bg_image)
         
     def new_graph(self):
@@ -317,7 +315,52 @@ class GraphExplorerApp:
                 message += "Liste des nœuds : (Trop nombreux pour l'affichage)"
 
         messagebox.showinfo("Informations du Graphe", message)
+        
+    def load_france_map(self):
+        """Génère la carte de France avec les 15 grandes villes."""
+        self.new_graph() # Nettoie tout
+        
+        # Ajoute les nœuds
+        for ville in VILLES_FRANCE:
+            self.graph.add_node(ville)
+            self.node_listframe.insert(tk.END, ville)
+            
+        # Ajoute les routes
+        for u, v in ROUTES_FRANCE:
+            self.graph.add_edge(u, v)
+            
+        # Applique les positions fixes
+        self.current_positions = POSITIONS_FRANCE
+        
+        self.draw_graph()
+        self.statusVariable.set("Carte de France chargée avec les axes principaux.")
 
+    def run_shortest_path(self):
+        """Demande point A et B, et surligne l'itinéraire."""
+        start = simpledialog.askstring("Itinéraire", "Ville de départ :", parent=self.root)
+        if not start or not start.strip(): return
+        
+        goal = simpledialog.askstring("Itinéraire", "Ville d'arrivée :", parent=self.root)
+        if not goal or not goal.strip(): return
+
+        start, goal = start.strip(), goal.strip()
+
+        try:
+            # On utilise le contrôleur que tu as brillamment codé !
+            path = self.controller.find_shortest_path(start, goal)
+            
+            if path:
+                self.draw_graph() # Nettoie les anciens dessins
+                render.highlight_path(self.canvas, path, self.current_positions)
+                
+                chemin_str = " -> ".join(path)
+                messagebox.showinfo("Itinéraire trouvé !", f"Le plus court chemin est :\n\n{chemin_str}")
+                self.statusVariable.set(f"Itinéraire affiché : {start} à {goal} ({len(path)-1} étapes)")
+            else:
+                messagebox.showwarning("Introuvable", "Aucune route n'existe entre ces deux villes.")
+                
+        except ValueError as e:
+            messagebox.showerror("Erreur", str(e))
 
 def main():
     """Point d'entrée de l'application."""
