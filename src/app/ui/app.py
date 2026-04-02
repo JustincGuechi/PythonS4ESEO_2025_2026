@@ -143,7 +143,7 @@ class GraphExplorerApp:
 
     def draw_graph(self):
         """Dessine le graphe sur le Canvas via le module render."""
-        self.clear_canvas()
+        
         if len(self.graph.nodes()) > 0:
             if not self.current_positions:
                 self.current_positions = render.auto_layout(self.graph, self.canvas.winfo_width(), self.canvas.winfo_height())
@@ -305,7 +305,6 @@ class GraphExplorerApp:
         # TODO: implémenter
         
         self.canvas.delete("all")
-        self.graph = Graph()
         self.controller = GraphController(self.graph)
         self.node_listframe.delete(0, tk.END)
         self.statusVariable.set("Canvas effacé et graphe réinitialisé.")
