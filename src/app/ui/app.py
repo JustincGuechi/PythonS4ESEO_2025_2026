@@ -60,19 +60,20 @@ class GraphExplorerApp:
             root: Fenêtre racine Tkinter
         """
         self.root = root
-        self.root.title("Explorateur de Graphes - ESEO S4")
+        self.root.title("Calculateur d'itinéraire - France")
         self.root.geometry("1000x700")
         
         self.graph = Graph()
         self.controller = GraphController(self.graph)
         
-        self.current_positions = {}
         try:
             self.bg_image = tk.PhotoImage(file="carte_france.png") 
         except Exception:
             self.bg_image = None
             
-        # Garde un SEUL appel ici, tout à la fin de l'initialisation !
+        self._setup_ui()
+        
+        self.load_france_map()
         self._setup_ui()
     
     def _setup_ui(self):
