@@ -100,7 +100,9 @@ class GraphExplorerApp:
         tk.Button(leftFrame, text="+ Ajouter Arête", command=self.add_edge).pack(fill=tk.X, padx=5, pady=2)
         tk.Button(leftFrame, text="Lancer DFS", command=self.run_dfs).pack(fill=tk.X, padx=5, pady=10)
         tk.Button(leftFrame, text="Lancer BFS", command=self.run_bfs).pack(fill=tk.X, padx=5, pady=2)
-        
+        tk.Button(leftFrame, text="🌍 Charger Carte France", command=self.load_france_map, bg="#ffcc00").pack(fill=tk.X, padx=5, pady=10)
+        tk.Button(leftFrame, text="📍 Itinéraire (Plus Court Chemin)", command=self.run_shortest_path, bg="#9AD0E6").pack(fill=tk.X, padx=5, pady=2)
+
         tk.Button(leftFrame, text="Infos Graphe", command=self.show_info).pack(fill=tk.X, padx=5, pady=2)
         tk.Label(leftFrame, text="Liste des Nœuds :").pack(pady=(10, 0))
         self.node_listframe = tk.Listbox(leftFrame, height=15)
@@ -117,15 +119,17 @@ class GraphExplorerApp:
         bottomFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
 
         self.canvas.config(bg='#9AD0E6')
-        tk.Button(leftFrame, text="🌍 Charger Carte France", command=self.load_france_map, bg="#ffcc00").pack(fill=tk.X, padx=5, pady=10)
-        tk.Button(leftFrame, text="📍 Itinéraire (Plus Court Chemin)", command=self.run_shortest_path, bg="#9AD0E6").pack(fill=tk.X, padx=5, pady=2)
 
     def draw_graph(self):
         """Dessine le graphe sur le Canvas via le module render."""
-        # On calcule les positions automatiques
-        positions = render.auto_layout(self.graph, self.canvas.winfo_width(), self.canvas.winfo_height())
-        # On dessine le graphe
-        render.draw_graph(self.canvas, self.graph, positions)
+        self.clear_canvas()
+        if len(self.graph.nodes()) > 0:
+            # Si on a pas de positions fixes (graphe normal), on calcule le cercle
+            if not self.current_positions:
+                self.current_positions = render.auto_layout(self.graph, self.canvas.winfo_width(), self.canvas.winfo_height())
+            
+            # On passe l'image de fond à la fonction de dessin
+            render.draw_graph(self.canvas, self.graph, self.current_positions, self.bg_image)
         
     def new_graph(self):
         """Crée un nouveau graphe vide."""
