@@ -154,8 +154,12 @@ class GraphExplorerApp:
         """Crée un nouveau graphe vide."""
         # TODO: implémenter
         self.graph = Graph()
-        self.clear_canvas()
+        self.controller = GraphController(self.graph) 
+        self.current_positions = {}                   
+        
+        self.canvas.delete("all")
         self.node_listframe.delete(0, tk.END)
+        
         self.statusVariable.set("Nouveau graphe créé")
         
     def load_graph(self):
@@ -305,9 +309,7 @@ class GraphExplorerApp:
         # TODO: implémenter
         
         self.canvas.delete("all")
-        self.controller = GraphController(self.graph)
-        self.node_listframe.delete(0, tk.END)
-        self.statusVariable.set("Canvas effacé et graphe réinitialisé.")
+        self.statusVariable.set("Canvas effacé")
         
     def show_info(self):
         """Affiche des infos sur le graphe actuel."""
