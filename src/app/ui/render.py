@@ -20,7 +20,7 @@ EDGE_WIDTH = 2
 TEXT_COLOR = "white"
 
 
-def draw_graph(canvas: tk.Canvas, graph: Graph, positions: dict[str, tuple[int, int]]):
+def draw_graph(canvas: tk.Canvas, graph: Graph, positions: dict[str, tuple[int, int]], bg_image=None):
     """
     Dessine un graphe sur un Canvas Tkinter.
 
