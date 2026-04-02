@@ -98,49 +98,30 @@ class GraphExplorerApp:
         #background_label = tk.Label(self.root, image=self.bg_image)
         #background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-        topFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
-        topFrame.pack(side=tk.TOP, fill=tk.X, padx=5, pady=5)
-        
-        
-        tk.Button(topFrame, text="Nouveau", command=self.new_graph).pack(side=tk.LEFT, padx=5)
-        tk.Button(topFrame, text="CHARGER! CHARGER! CHARGER! CHARGER! BRRRRRRRRRRRRR", command=self.load_graph).pack(side=tk.LEFT, padx=5)
-        tk.Button(topFrame, text= "Sauvegarder", command=self.save_graph).pack(side=tk.LEFT, padx=5)
-        
         bottomFrame = tk.Frame(self.root, relief=tk.SUNKEN, bd=1)
         bottomFrame.pack(side=tk.BOTTOM, fill=tk.X)
-        
         self.statusVariable = tk.StringVar()
-        self.statusVariable.set("Statut : En attente de création d'un graphe")
         tk.Label(bottomFrame, textvariable=self.statusVariable, anchor=tk.W).pack(side=tk.LEFT, padx=5, pady=2)
 
+        # --- Frame Gauche (Contrôles) ---
         leftFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
         leftFrame.pack(side=tk.LEFT, fill=tk.Y, padx=5, pady=5)
         
-        tk.Label(leftFrame, text="Outils & Nœuds", font=("Arial", 10, "bold")).pack(pady=5)
+        tk.Label(leftFrame, text="Outils de Navigation", font=("Arial", 12, "bold")).pack(pady=10)
         
-        tk.Button(leftFrame, text="+ Ajouter Nœud", command=self.add_node).pack(fill=tk.X, padx=5, pady=2)
-        tk.Button(leftFrame, text="+ Ajouter Arête", command=self.add_edge).pack(fill=tk.X, padx=5, pady=2)
-        tk.Button(leftFrame, text="Lancer DFS", command=self.run_dfs).pack(fill=tk.X, padx=5, pady=10)
-        tk.Button(leftFrame, text="Lancer BFS", command=self.run_bfs).pack(fill=tk.X, padx=5, pady=2)
-        tk.Button(leftFrame, text="🌍 Charger Carte France", command=self.load_france_map, bg="#ffcc00").pack(fill=tk.X, padx=5, pady=10)
-        tk.Button(leftFrame, text="📍 Itinéraire (Plus Court Chemin)", command=self.run_shortest_path, bg="#9AD0E6").pack(fill=tk.X, padx=5, pady=2)
+        tk.Button(leftFrame, text="📍 Chercher un Itinéraire", command=self.run_shortest_path, bg="#9AD0E6", font=("Arial", 10, "bold"), height=2).pack(fill=tk.X, padx=5, pady=10)
+        tk.Button(leftFrame, text="🔄 Réinitialiser la carte", command=self.load_france_map).pack(fill=tk.X, padx=5, pady=2)
 
-        tk.Button(leftFrame, text="Infos Graphe", command=self.show_info).pack(fill=tk.X, padx=5, pady=2)
-        tk.Label(leftFrame, text="Liste des Nœuds :").pack(pady=(10, 0))
-        self.node_listframe = tk.Listbox(leftFrame, height=15)
+        tk.Label(leftFrame, text="Villes disponibles :").pack(pady=(20, 0))
+        self.node_listframe = tk.Listbox(leftFrame, height=20)
         self.node_listframe.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
 
+        # --- Frame Droite (Canvas) ---
         rightFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
         rightFrame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=5, pady=5)
         
-        self.canvas = tk.Canvas(rightFrame, bg="white", cursor="crosshair")
+        self.canvas = tk.Canvas(rightFrame, bg="#9AD0E6") # Bleu clair pour la mer si l'image ne couvre pas tout
         self.canvas.pack(fill=tk.BOTH, expand=True)
-
-        tk.Button(rightFrame, text="Effacer le dessin", command=self.clear_canvas).pack(side=tk.BOTTOM, pady=5)
-
-        bottomFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
-
-        self.canvas.config(bg='#9AD0E6')
 
     def draw_graph(self):
         """Dessine le graphe sur le Canvas via le module render."""
