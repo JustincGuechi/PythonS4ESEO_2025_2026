@@ -23,7 +23,7 @@ TEXT_COLOR = "white"
 def draw_graph(canvas: tk.Canvas, graph: Graph, positions: dict[str, tuple[int, int]]):
     """
     Dessine un graphe sur un Canvas Tkinter.
-    
+
     Args:
         canvas: Canvas Tkinter où dessiner
         graph: Le graphe à dessiner
@@ -50,7 +50,10 @@ def draw_graph(canvas: tk.Canvas, graph: Graph, positions: dict[str, tuple[int, 
     # canvas.create_text(x, y, text=label, fill=color)
     
     canvas.delete("all")
-    
+
+    if bg_image:
+        canvas.create_image(0, 0, image=bg_image, anchor="nw")
+
     for u, v in graph.edges():
         if u in positions and v in positions:
             x1, y1 = positions[u]
