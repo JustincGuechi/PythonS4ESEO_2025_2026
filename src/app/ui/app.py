@@ -53,12 +53,6 @@ class GraphExplorerApp:
     """
     
     def __init__(self, root: tk.Tk):
-        """
-        Initialise l'application.
-        
-        Args:
-            root: Fenêtre racine Tkinter
-        """
         self.root = root
         self.root.title("Calculateur d'itinéraire - France")
         self.root.geometry("1000x700")
@@ -73,7 +67,6 @@ class GraphExplorerApp:
             
         self._setup_ui()
         self.load_france_map()
-
     
     def _setup_ui(self):
         """Configure tous les widgets de l'interface."""
