@@ -17,6 +17,30 @@ from . import render
 from .controller import GraphController
 import json
 
+VILLES_FRANCE = [
+    "Paris", "Marseille", "Lyon", "Toulouse", "Nice", 
+    "Nantes", "Montpellier", "Strasbourg", "Bordeaux", "Lille",
+    "Rennes", "Reims", "Toulon", "Saint-Étienne", "Le Havre"
+]
+
+ROUTES_FRANCE = [
+    ("Paris", "Lille"), ("Paris", "Le Havre"), ("Paris", "Rennes"),
+    ("Paris", "Nantes"), ("Paris", "Bordeaux"), ("Paris", "Lyon"),
+    ("Paris", "Reims"), ("Reims", "Strasbourg"), ("Rennes", "Nantes"),
+    ("Nantes", "Bordeaux"), ("Bordeaux", "Toulouse"), ("Toulouse", "Montpellier"),
+    ("Montpellier", "Marseille"), ("Lyon", "Saint-Étienne"), ("Lyon", "Marseille"),
+    ("Marseille", "Toulon"), ("Toulon", "Nice"), ("Lyon", "Strasbourg"),
+    ("Montpellier", "Toulouse")
+]
+
+POSITIONS_FRANCE = {
+    "Paris": (400, 180), "Marseille": (580, 520), "Lyon": (520, 380),
+    "Toulouse": (380, 510), "Nice": (680, 500), "Nantes": (220, 280),
+    "Montpellier": (500, 510), "Strasbourg": (700, 200), "Bordeaux": (280, 420),
+    "Lille": (420, 50), "Rennes": (220, 200), "Reims": (500, 150),
+    "Toulon": (620, 540), "Saint-Étienne": (480, 400), "Le Havre": (300, 120)
+
+    
 class GraphExplorerApp:
     """
     Application principale avec interface Tkinter.
