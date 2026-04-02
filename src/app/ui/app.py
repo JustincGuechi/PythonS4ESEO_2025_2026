@@ -131,8 +131,7 @@ class GraphExplorerApp:
         self.graph = Graph()
         self.controller = GraphController(self.graph)
         self.node_listframe.delete(0, tk.END)
-        
-        # Ajout des nœuds et arêtes
+
         for ville in VILLES_FRANCE:
             self.graph.add_node(ville)
             self.node_listframe.insert(tk.END, ville)
@@ -151,13 +150,13 @@ class GraphExplorerApp:
         goal = simpledialog.askstring("Itinéraire", "Ville d'arrivée :", parent=self.root)
         if not goal or not goal.strip(): return
 
-        start, goal = start.strip().capitalize(), goal.strip().capitalize() # Astuce pour gérer les majuscules
+        start, goal = start.strip().capitalize(), goal.strip().capitalize() 
 
         try:
             path = self.controller.find_shortest_path(start, goal)
             
             if path:
-                self.draw_graph() # Nettoie les anciens dessins
+                self.draw_graph()
                 render.highlight_path(self.canvas, path, POSITIONS_FRANCE)
                 
                 chemin_str = " -> ".join(path)
