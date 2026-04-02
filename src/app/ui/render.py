@@ -8,7 +8,6 @@ Palier F - Séances 7-8.
 import tkinter as tk
 from ..core import Graph
 
-# Constantes pour le rendu
 NODE_RADIUS = 20
 NODE_COLOR = "#4A90E2"
 NODE_COLOR_VISITED = "#50C878"
@@ -20,18 +19,17 @@ def draw_graph(canvas: tk.Canvas, graph: Graph, positions: dict[str, tuple[int, 
     """Dessine le graphe routier sur la carte."""
     canvas.delete("all")
 
-    # 1. Image de fond
+
     if bg_image:
         canvas.create_image(0, 0, image=bg_image, anchor="nw")
 
-    # 2. Routes (Arêtes)
     for u, v in graph.edges():
         if u in positions and v in positions:
             x1, y1 = positions[u]
             x2, y2 = positions[v]
             canvas.create_line(x1, y1, x2, y2, width=EDGE_WIDTH, fill=EDGE_COLOR)
         
-    # 3. Villes (Nœuds)
+
     for node in graph.nodes():
         if node in positions:
             x, y = positions[node]
@@ -45,7 +43,7 @@ def highlight_path(canvas: tk.Canvas, path: list[str], positions: dict[str, tupl
     if not path or len(path) == 0:
         return
 
-    # Surligner les routes
+
     for i in range(len(path) - 1):
         u = path[i]
         v = path[i+1]
@@ -54,7 +52,7 @@ def highlight_path(canvas: tk.Canvas, path: list[str], positions: dict[str, tupl
             x2, y2 = positions[v]
             canvas.create_line(x1, y1, x2, y2, width=EDGE_WIDTH + 3, fill=NODE_COLOR_VISITED)
 
-    # Surligner les villes
+
     for node in path:
         if node in positions:
             x, y = positions[node]
