@@ -39,19 +39,16 @@ class GraphExplorerApp:
         self.root.title("Explorateur de Graphes - ESEO S4")
         self.root.geometry("1000x700")
         
-        # Graphe actuel
         self.graph = Graph()
-        
         self.controller = GraphController(self.graph)
         
-        # Configuration de l'interface
-        self._setup_ui()
         self.current_positions = {}
         try:
             self.bg_image = tk.PhotoImage(file="carte_france.png") 
         except Exception:
             self.bg_image = None
             
+        # Garde un SEUL appel ici, tout à la fin de l'initialisation !
         self._setup_ui()
     
     def _setup_ui(self):
@@ -315,7 +312,7 @@ class GraphExplorerApp:
                 message += "Liste des nœuds : (Trop nombreux pour l'affichage)"
 
         messagebox.showinfo("Informations du Graphe", message)
-        
+
     def load_france_map(self):
         """Génère la carte de France avec les 15 grandes villes."""
         self.new_graph() # Nettoie tout
