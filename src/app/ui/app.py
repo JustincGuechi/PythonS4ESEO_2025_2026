@@ -39,8 +39,8 @@ POSITIONS_FRANCE = {
     "Montpellier": (500, 510), "Strasbourg": (700, 200), "Bordeaux": (280, 420),
     "Lille": (420, 50), "Rennes": (220, 200), "Reims": (500, 150),
     "Toulon": (620, 540), "Saint-Étienne": (480, 400), "Le Havre": (300, 120)
+}
 
-    
 class GraphExplorerApp:
     """
     Application principale avec interface Tkinter.
