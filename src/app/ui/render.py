@@ -13,7 +13,7 @@ NODE_COLOR = "#4A90E2"
 NODE_COLOR_VISITED = "#50C878"
 EDGE_COLOR = "#95A5A6"
 EDGE_WIDTH = 2
-TEXT_COLOR = "white"
+TEXT_COLOR = "black"
 
 def draw_graph(canvas: tk.Canvas, graph: Graph, positions: dict[str, tuple[int, int]], bg_image=None):
     """Dessine le graphe routier sur la carte."""
