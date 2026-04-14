@@ -61,7 +61,9 @@ class GraphExplorerApp:
         self.controller = GraphController(self.graph)
         
         try:
-            self.bg_image = tk.PhotoImage(file="carte_france.png") 
+            dossier_actuel = os.path.dirname(os.path.abspath(__file__))
+            chemin_image = os.path.join(dossier_actuel, "carte_france.png")
+            self.bg_image = tk.PhotoImage(file=chemin_image)
         except Exception:
             self.bg_image = None
             
