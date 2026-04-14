@@ -20,7 +20,7 @@ import json
 VILLES_FRANCE = [
     "Paris", "Marseille", "Lyon", "Toulouse", "Nice", 
     "Nantes", "Montpellier", "Strasbourg", "Bordeaux", "Lille",
-    "Rennes", "Reims", "Toulon", "Saint-Étienne", "Le Havre"
+    "Rennes", "Reims", "Toulon", "Saint-Étienne", "Le Havre", "Dijon"
 ]
 
 ROUTES_FRANCE = [
@@ -30,15 +30,16 @@ ROUTES_FRANCE = [
     ("Nantes", "Bordeaux"), ("Bordeaux", "Toulouse"), ("Toulouse", "Montpellier"),
     ("Montpellier", "Marseille"), ("Lyon", "Saint-Étienne"), ("Lyon", "Marseille"),
     ("Marseille", "Toulon"), ("Toulon", "Nice"), ("Lyon", "Strasbourg"),
-    ("Montpellier", "Toulouse")
+    ("Montpellier", "Toulouse"),("Montpellier", "Toulouse"),
+    ("Paris", "Dijon"), ("Dijon", "Lyon"), ("Dijon", "Strasbourg")
 ]
 
 POSITIONS_FRANCE = {
-    "Paris": (400, 180), "Marseille": (580, 520), "Lyon": (520, 380),
-    "Toulouse": (380, 510), "Nice": (680, 500), "Nantes": (220, 280),
-    "Montpellier": (500, 510), "Strasbourg": (660, 180), "Bordeaux": (280, 420),
-    "Lille": (440, 50), "Rennes": (220, 200), "Reims": (500, 150),
-    "Toulon": (620, 540), "Saint-Étienne": (480, 400), "Le Havre": (300, 120)
+    "Paris": (400, 180), "Marseille": (580, 570), "Lyon": (520, 380),
+    "Toulouse": (360, 580), "Nice": (660, 560), "Nantes": (220, 300),
+    "Montpellier": (500, 540), "Strasbourg": (660, 180), "Bordeaux": (270, 480),
+    "Lille": (440, 50), "Rennes": (220, 220), "Reims": (500, 150),
+    "Toulon": (620, 590), "Saint-Étienne": (480, 400), "Le Havre": (300, 120), "Dijon": (500,300)
 }
 
 class GraphExplorerApp:
