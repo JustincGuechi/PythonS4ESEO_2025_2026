@@ -5,7 +5,7 @@ Fenêtre principale de l'application Tkinter.
 
 Palier F - Séances 6-8.
 """
-
+import os
 import tkinter as tk
 from tkinter import messagebox, filedialog
 from ..core import Graph
