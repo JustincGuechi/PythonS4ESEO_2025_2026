@@ -103,8 +103,8 @@ class GraphExplorerApp:
         
         tk.Label(leftFrame, text="Outils de Navigation", font=("Arial", 12, "bold")).pack(pady=10)
         
-        tk.Button(leftFrame, text="📍 Chercher un Itinéraire", command=self.run_shortest_path, bg="#9AD0E6", font=("Arial", 10, "bold"), height=2).pack(fill=tk.X, padx=5, pady=10)
-        tk.Button(leftFrame, text="🔄 Réinitialiser la carte", command=self.load_france_map).pack(fill=tk.X, padx=5, pady=2)
+        tk.Button(leftFrame, text="Chercher un Itinéraire", command=self.run_shortest_path, bg="#9AD0E6", font=("Arial", 10, "bold"), height=2).pack(fill=tk.X, padx=5, pady=10)
+        tk.Button(leftFrame, text="Réinitialiser la carte", command=self.load_france_map).pack(fill=tk.X, padx=5, pady=2)
 
         tk.Label(leftFrame, text="Villes disponibles :").pack(pady=(20, 0))
         self.node_listframe = tk.Listbox(leftFrame, height=20)
