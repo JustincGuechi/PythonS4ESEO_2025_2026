@@ -36,7 +36,7 @@ ROUTES_FRANCE = [
 POSITIONS_FRANCE = {
     "Paris": (400, 180), "Marseille": (580, 520), "Lyon": (520, 380),
     "Toulouse": (380, 510), "Nice": (680, 500), "Nantes": (220, 280),
-    "Montpellier": (500, 510), "Strasbourg": (700, 200), "Bordeaux": (280, 420),
+    "Montpellier": (500, 510), "Strasbourg": (660, 180), "Bordeaux": (280, 420),
     "Lille": (420, 50), "Rennes": (220, 200), "Reims": (500, 150),
     "Toulon": (620, 540), "Saint-Étienne": (480, 400), "Le Havre": (300, 120)
 }
