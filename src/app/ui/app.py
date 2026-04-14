@@ -113,7 +113,7 @@ class GraphExplorerApp:
         rightFrame = tk.Frame(self.root, relief=tk.RAISED, bd=1)
         rightFrame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=5, pady=5)
         
-        self.canvas = tk.Canvas(rightFrame, bg="#9AD0E6") 
+        self.canvas = tk.Canvas(rightFrame, bg="#FFFFFF") 
         self.canvas.pack(fill=tk.BOTH, expand=True)
 
     def draw_graph(self):
