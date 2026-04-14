@@ -64,7 +64,7 @@ class GraphExplorerApp:
             dossier_actuel = os.path.dirname(os.path.abspath(__file__))
             chemin_image = os.path.join(dossier_actuel, "carte_france.png")
             self.bg_image = tk.PhotoImage(file=chemin_image)
-        except Exception:
+        except Exception as e:
             print(f"erreur image : {e}")
             self.bg_image = None
             
