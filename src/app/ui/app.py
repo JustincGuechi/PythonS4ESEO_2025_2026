@@ -62,7 +62,6 @@ class GraphExplorerApp:
         self.root.geometry("1000x700")
         
         self.graph = Graph()
-        self.weights = {}
         self.controller = GraphController(self.graph)
         
         try:
