@@ -24,14 +24,17 @@ VILLES_FRANCE = [
 ]
 
 ROUTES_FRANCE = [
-    ("Paris", "Lille"), ("Paris", "Le Havre"), ("Paris", "Rennes"),
-    ("Paris", "Nantes"), ("Paris", "Bordeaux"), ("Paris", "Lyon"),
-    ("Paris", "Reims"), ("Reims", "Strasbourg"), ("Rennes", "Nantes"),
-    ("Nantes", "Bordeaux"), ("Bordeaux", "Toulouse"), ("Toulouse", "Montpellier"),
-    ("Montpellier", "Marseille"), ("Lyon", "Saint-Étienne"), ("Lyon", "Marseille"),
-    ("Marseille", "Toulon"), ("Toulon", "Nice"), ("Lyon", "Strasbourg"),
-    ("Montpellier", "Toulouse"),("Montpellier", "Toulouse"),
-    ("Paris", "Dijon"), ("Dijon", "Lyon"), ("Dijon", "Strasbourg")
+    ("Paris", "Lille", 225), ("Paris", "Le Havre", 195), ("Paris", "Rennes", 350),
+    ("Paris", "Nantes", 385), ("Paris", "Bordeaux", 585), 
+    ("Paris", "Reims", 145), ("Reims", "Strasbourg", 350), ("Rennes", "Nantes", 110),
+    ("Nantes", "Bordeaux", 350), ("Bordeaux", "Toulouse", 245), 
+    ("Toulouse", "Montpellier", 240), ("Montpellier", "Marseille", 170), 
+    ("Lyon", "Saint-Étienne", 60), ("Lyon", "Marseille", 315),
+    ("Marseille", "Toulon", 65), ("Toulon", "Nice", 150), 
+    ("Lyon", "Strasbourg", 490), 
+    ("Paris", "Dijon", 315), 
+    ("Dijon", "Lyon", 195), 
+    ("Dijon", "Strasbourg", 330)
 ]
 
 POSITIONS_FRANCE = {
