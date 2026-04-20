@@ -32,6 +32,7 @@ class Graph:
         # TODO: initialiser la structure de données
         # Conseil : utiliser un dictionnaire
         self.graph = {}
+        self.weights = {}
     
     def add_node(self, node: str) -> None:
         """
