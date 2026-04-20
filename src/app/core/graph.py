@@ -85,7 +85,10 @@ class Graph:
 
         if a not in self.graph[b]:
             self.graph[b].append(a)
-    
+
+        self.weights[(u, v)] = weight
+        self.weights[(v, u)] = weight
+        
     def remove_node(self, node: str) -> None:
         """
         Supprime un nœud et toutes ses arêtes associées.
