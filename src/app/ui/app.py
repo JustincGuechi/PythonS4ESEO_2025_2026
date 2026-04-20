@@ -135,9 +135,9 @@ class GraphExplorerApp:
             self.graph.add_node(ville)
             self.node_listframe.insert(tk.END, ville)
             
-        for a, b in ROUTES_FRANCE:
-            for a, b, distance in ROUTES_FRANCE:
-                self.graph.add_edge(a, b, weight=distance)
+        for u, v in ROUTES_FRANCE:
+            for u, v, distance in ROUTES_FRANCE:
+                self.graph.add_edge(u, v, weight=distance)
             
         self.draw_graph()
         self.statusVariable.set("Carte prête. Prêt pour le calcul d'itinéraire.")
