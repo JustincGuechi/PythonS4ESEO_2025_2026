@@ -86,8 +86,8 @@ class Graph:
         if a not in self.graph[b]:
             self.graph[b].append(a)
 
-        self.weights[(u, v)] = weight
-        self.weights[(v, u)] = weight
+        self.weights[(a, b)] = weight
+        self.weights[(a, b)] = weight
         
     def remove_node(self, node: str) -> None:
         """
