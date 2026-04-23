@@ -164,6 +164,15 @@ class GraphExplorerApp:
                     ville_b = path[i+1]
 
                     distance_totale += self.graph.weights.get((ville_a, ville_b), 0)
+                temps_total_minutes = int(distance_totale * 0.85)
+                
+                heures = temps_total_minutes // 60
+                minutes = temps_total_minutes % 60
+                
+                if heures > 0:
+                    temps_str = f"{heures}h {minutes:02d}min"
+                else:
+                    temps_str = f"{minutes}min"
 
                 chemin_str = " -> ".join(path)
                 
