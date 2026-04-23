@@ -178,7 +178,7 @@ class GraphExplorerApp:
                 
                 messagebox.showinfo(
                     "Itinéraire trouvé !", 
-                    f"Le plus court chemin est :\n\n{chemin_str}\n\n Distance totale : {distance_totale} km\n\n Temps estimé : {temps_str}"
+                    f"Le plus court chemin est :\n\n{chemin_str}\n\n Distance totale : {distance_totale} km\n\n Temps estimé : environ {temps_str}"
                 )
                 
                 
