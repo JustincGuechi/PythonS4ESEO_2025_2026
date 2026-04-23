@@ -9,7 +9,8 @@ Paliers B, C, D.
 
 from collections import deque
 from .graph import Graph
-
+import math
+import heapq
 
 # ============================================================================
 # PALIER B : DFS (Depth-First Search / Parcours en profondeur)
