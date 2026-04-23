@@ -82,7 +82,7 @@ class GraphController:
         except Exception as e:
             raise ValueError(f"Erreur lors de l'exécution de la BFS : {e}")
 
-    def find_shortest_path(self, start: str, goal: str) -> list[str] | None:
+    def find_shortest_path(self, start: str, goal: str, positions:dict) -> list[str] | None:
         """
         Trouve le plus court chemin entre deux nœuds.
         
