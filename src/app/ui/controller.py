@@ -82,7 +82,7 @@ class GraphController:
         except Exception as e:
             raise ValueError(f"Erreur lors de l'exécution de la BFS : {e}")
 
-    def find_shortest_path(self, start: str, goal: str, positions:dict) -> list[str] | None:
+    def find_shortest_path(self, start: str, goal: str) -> list[str] | None:
         """
         Trouve le plus court chemin entre deux nœuds.
         
@@ -106,7 +106,7 @@ class GraphController:
         if goal not in noeuds:
             raise ValueError(f"Le nœud d'arrivée '{goal}' n'existe pas dans le graphe.")
 
-        return algorithms.a_star_path(self.graph, start, goal, positions)
+        return algorithms.a_star_path(self.graph, start, goal)
     
     def check_connectivity(self) -> bool:
         """
