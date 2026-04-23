@@ -158,14 +158,31 @@ class GraphExplorerApp:
                 self.draw_graph()
                 render.highlight_path(self.canvas, path, POSITIONS_FRANCE)
                 
+                # --- NOUVEAU : Calcul de la distance totale ---
+                distance_totale = 0
+                for i in range(len(path) - 1):
+                    ville_a = path[i]
+                    ville_b = path[i+1]
+                    # On récupère les kilomètres entre les deux villes
+                    distance_totale += self.graph.weights.get((ville_a, ville_b), 0)
+                # ----------------------------------------------
+
                 chemin_str = " -> ".join(path)
-                messagebox.showinfo("Itinéraire trouvé !", f"Le plus court chemin est :\n\n{chemin_str}")
-                self.statusVariable.set(f"Itinéraire affiché : {start} à {goal} ({len(path)-1} étapes)")
+                
+                # On met à jour le texte de la popup
+                messagebox.showinfo(
+                    "Itinéraire trouvé !", 
+                    f"Le plus court chemin est :\n\n{chemin_str}\n\n📍 Distance totale : {distance_totale} km"
+                )
+                
+                
+                self.statusVariable.set(f"Itinéraire affiché : {start} à {goal} ({distance_totale} km)")
+                
             else:
                 messagebox.showwarning("Introuvable", "Aucune route n'existe entre ces deux villes.")
                 
-        except ValueError:
-            messagebox.showerror("Erreur", f"L'une des villes n'est pas sur la carte.\nVérifiez l'orthographe (ex: '{start}' ou '{goal}').")
+        except ValueError as e:
+            messagebox.showerror("Erreur", str(e))
 
 def main():
     root = tk.Tk()
