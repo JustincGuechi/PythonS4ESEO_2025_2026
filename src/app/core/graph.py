@@ -56,7 +56,7 @@ class Graph:
         if node not in self.graph:
             self.graph[node] = []
     
-    def add_edge(self, a: str, b: str) -> None:
+    def add_edge(self, a: str, b: str, weight: int = 1) -> None:
         """
         Ajoute une arête non orientée entre deux nœuds.
         
@@ -86,7 +86,7 @@ class Graph:
             self.graph[u].append(v)
         if u not in self.graph[v]:
             self.graph[v].append(u)
-            
+
         self.weights[(u, v)] = weight
         self.weights[(v, u)] = weight
         
