@@ -77,18 +77,18 @@ class Graph:
         """
         # TODO: implémenter
         # Attention : graphe NON ORIENTÉ → ajouter dans les deux sens
-        if u not in self.graph:
-            self.graph[u] = []
-        if v not in self.graph:
-            self.graph[v] = []
+        if a not in self.graph:
+            self.graph[a] = []
+        if b not in self.graph:
+            self.graph[b] = []
             
-        if v not in self.graph[u]:
-            self.graph[u].append(v)
-        if u not in self.graph[v]:
-            self.graph[v].append(u)
+        if b not in self.graph[a]:
+            self.graph[a].append(b)
+        if a not in self.graph[b]:
+            self.graph[b].append(a)
 
-        self.weights[(u, v)] = weight
-        self.weights[(v, u)] = weight
+        self.weights[(a, b)] = weight
+        self.weights[(b, a)] = weight
         
     def remove_node(self, node: str) -> None:
         """
