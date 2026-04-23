@@ -152,7 +152,7 @@ class GraphExplorerApp:
         start, goal = start.strip().capitalize(), goal.strip().capitalize() 
 
         try:
-            path = self.controller.find_shortest_path(start, goal, POSITIONS_FRANCE)
+            path = self.controller.find_shortest_path(start, goal)
 
             if path:
                 self.draw_graph()
