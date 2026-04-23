@@ -106,7 +106,7 @@ class GraphController:
         if goal not in noeuds:
             raise ValueError(f"Le nœud d'arrivée '{goal}' n'existe pas dans le graphe.")
 
-        return return algorithms.a_star_path(self.graph, start, goal, positions)
+        return algorithms.a_star_path(self.graph, start, goal, positions)
     
     def check_connectivity(self) -> bool:
         """
