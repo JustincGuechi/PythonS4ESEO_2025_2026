@@ -346,3 +346,51 @@ def path_length(path: list[str] | None) -> int:
     if path is None:
         return -1
     return len(path) - 1
+
+def a_star_path(graph: Graph, start: str, goal: str, positions: dict) -> list[str] | None:
+    """Trouve le plus court chemin avec l'algorithme A* (A-Star)."""
+    if not graph.has_node(start) or not graph.has_node(goal):
+        return None
+
+    # L'astuce de A* : calculer la distance "à vol d'oiseau" jusqu'à l'arrivée
+    def heuristique(noeud):
+        x1, y1 = positions[noeud]
+        x2, y2 = positions[goal]
+        return math.hypot(x2 - x1, y2 - y1) # Théorème de Pythagore !
+
+    g_score = {noeud: float('inf') for noeud in graph.nodes()} # Distance parcourue
+    g_score[start] = 0
+
+    f_score = {noeud: float('inf') for noeud in graph.nodes()} # Distance totale estimée
+    f_score[start] = heuristique(start)
+
+    file_priorite = [(f_score[start], start)]
+    provenance = {start: None}
+
+    while file_priorite:
+        _, noeud_actuel = heapq.heappop(file_priorite)
+
+        if noeud_actuel == goal:
+            break
+
+        for voisin in graph.neighbors(noeud_actuel):
+            poids_route = graph.weights.get((noeud_actuel, voisin), 1)
+            nouveau_g = g_score[noeud_actuel] + poids_route
+
+            if nouveau_g < g_score[voisin]:
+                provenance[voisin] = noeud_actuel
+                g_score[voisin] = nouveau_g
+                f_score[voisin] = nouveau_g + heuristique(voisin)
+                heapq.heappush(file_priorite, (f_score[voisin], voisin))
+
+    if g_score[goal] == float('inf'):
+        return None
+
+    # On remonte le chemin de l'arrivée vers le départ
+    chemin = []
+    courant = goal
+    while courant:
+        chemin.append(courant)
+        courant = provenance[courant]
+        
+    return chemin[::-1] # On retourne la liste dans le bon sens
