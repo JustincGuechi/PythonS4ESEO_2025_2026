@@ -6,7 +6,7 @@ Fait le lien entre l'interface graphique et le cœur algorithmique.
 Ce module évite de mélanger la logique UI (Tkinter) et la logique métier (core).
 """
 
-from ..core import Graph, dfs, bfs, shortest_path, is_connected
+from ..core import Graph, dfs, bfs, shortest_path, is_connected, algorithms
 
 
 class GraphController:
@@ -106,7 +106,7 @@ class GraphController:
         if goal not in noeuds:
             raise ValueError(f"Le nœud d'arrivée '{goal}' n'existe pas dans le graphe.")
 
-        return shortest_path(self.graph, start, goal)
+        return return algorithms.a_star_path(self.graph, start, goal, positions)
     
     def check_connectivity(self) -> bool:
         """
