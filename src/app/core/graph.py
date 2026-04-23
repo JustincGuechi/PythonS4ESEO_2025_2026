@@ -86,6 +86,7 @@ class Graph:
             self.graph[u].append(v)
         if u not in self.graph[v]:
             self.graph[v].append(u)
+            
         self.weights[(u, v)] = weight
         self.weights[(v, u)] = weight
         
