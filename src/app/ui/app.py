@@ -158,21 +158,18 @@ class GraphExplorerApp:
                 self.draw_graph()
                 render.highlight_path(self.canvas, path, POSITIONS_FRANCE)
                 
-                # --- NOUVEAU : Calcul de la distance totale ---
                 distance_totale = 0
                 for i in range(len(path) - 1):
                     ville_a = path[i]
                     ville_b = path[i+1]
-                    # On récupère les kilomètres entre les deux villes
+
                     distance_totale += self.graph.weights.get((ville_a, ville_b), 0)
-                # ----------------------------------------------
 
                 chemin_str = " -> ".join(path)
                 
-                # On met à jour le texte de la popup
                 messagebox.showinfo(
                     "Itinéraire trouvé !", 
-                    f"Le plus court chemin est :\n\n{chemin_str}\n\n📍 Distance totale : {distance_totale} km"
+                    f"Le plus court chemin est :\n\n{chemin_str}\n\n Distance totale : {distance_totale} km"
                 )
                 
                 
