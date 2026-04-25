@@ -295,7 +295,7 @@ def reachable_from(graph: Graph, start: str) -> set[str]:
         noeud=liste.pop()
         if noeud not in visites:
             visites.add(noeud)
-            for voisin in (graph.neighbors(noeud or [])):
+            for voisin in (graph.neighbors(noeud)):
                 liste.append(voisin)
     return visites
 
