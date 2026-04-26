@@ -9,7 +9,8 @@ Paliers B, C, D.
 
 from collections import deque
 from .graph import Graph
-
+import math
+import heapq
 
 # ============================================================================
 # PALIER B : DFS (Depth-First Search / Parcours en profondeur)
@@ -55,8 +56,21 @@ def dfs(graph: Graph, start: str) -> list[str]:
     """
     # TODO: implémenter DFS
     # Astuce : pile = list, visited = set
-    pass
-
+    if not graph.has_node(start):
+        raise ValueError("Le graph est vide")
+    pile = [start]
+    noeudVisite = []
+    while len(pile) != 0 :
+        noeudActuel = pile.pop()
+        if noeudActuel not in noeudVisite :
+            noeudVisite.append(noeudActuel)
+            if graph.has_node(noeudActuel):
+                voisins = graph.neighbors(noeudActuel)
+                for element in voisins[::-1] :
+                    if element not in noeudVisite :
+                        pile.append(element)      
+    return noeudVisite
+    
 
 def dfs_path(graph: Graph, start: str, goal: str) -> list[str] | None:
     """
@@ -84,9 +98,22 @@ def dfs_path(graph: Graph, start: str, goal: str) -> list[str] | None:
     """
     # TODO: implémenter
     # Astuce : pile contient (noeud, chemin) où chemin est une liste
-    pass
-
-
+    if not graph.has_node(start):
+        return None
+    pile = [(start, [start])]
+    visites = []
+    while len(pile) > 0:
+        noeudActuel, cheminActuel = pile.pop()
+        if noeudActuel == goal:
+            return cheminActuel
+        if noeudActuel not in visites:
+            visites.append(noeudActuel)
+            voisins = graph.neighbors(noeudActuel)
+            for voisin in voisins[::-1]:
+                if voisin not in visites:
+                    nouveauChemin = cheminActuel + [voisin]
+                    pile.append((voisin, nouveauChemin))
+    return None
 # ============================================================================
 # PALIER C : BFS (Breadth-First Search / Parcours en largeur)
 # ============================================================================
@@ -126,8 +153,22 @@ def bfs(graph: Graph, start: str) -> list[str]:
     """
     # TODO: implémenter BFS
     # Astuce : file = deque(), visited = set
-    pass
+    
+    if start not in graph.graph:
+        raise ValueError(f"Le nœud de départ '{start}' n'existe pas dans le graphe.")
 
+    file = deque([start])
+    visites = {start}
+    ordre_parcours = []
+
+    while file:
+        noeud = file.popleft()
+        ordre_parcours.append(noeud)
+        for voisin in (graph.neighbors(noeud) or []):
+            if voisin not in visites:
+                visites.add(voisin)
+                file.append(voisin)  
+    return ordre_parcours
 
 def bfs_path(graph: Graph, start: str, goal: str) -> list[str] | None:
     """
@@ -159,7 +200,22 @@ def bfs_path(graph: Graph, start: str, goal: str) -> list[str] | None:
         File contient des tuples (nœud, chemin_jusqu'ici).
     """
     # TODO: implémenter
-    pass
+    if not graph.has_node(start):
+        return None
+    file = [(start, [start])]
+    visites = []
+    while len(file) > 0:
+        noeudActuel, cheminActuel = file.pop(0)
+        if noeudActuel == goal:
+            return cheminActuel
+        if noeudActuel not in visites:
+            visites.append(noeudActuel)
+            voisins = graph.neighbors(noeudActuel)
+            for voisin in voisins[::-1]:
+                if voisin not in visites:
+                    nouveauChemin = cheminActuel + [voisin]
+                    file.append((voisin, nouveauChemin))
+    return None
 
 
 # ============================================================================
@@ -199,8 +255,14 @@ def is_connected(graph: Graph) -> bool:
     """
     # TODO: implémenter
     # Astuce : réutiliser dfs() ou bfs()
-    pass
-
+    elementGraph = graph.nodes()
+    if len(elementGraph) == 0 :
+        return True
+    noeudDepart = elementGraph[0]
+    chemin = dfs(graph, noeudDepart)
+    if len(elementGraph) == len(chemin) :
+        return True
+    return False  
 
 def reachable_from(graph: Graph, start: str) -> set[str]:
     """
@@ -225,8 +287,17 @@ def reachable_from(graph: Graph, start: str) -> set[str]:
     """
     # TODO: implémenter
     # Astuce : réutiliser dfs() et convertir en set
-    pass
-
+    if start not in graph.graph:
+        raise ValueError(f"{start} n'est pas dans le graphe.")
+    liste=[start]
+    visites=set()
+    while liste:
+        noeud=liste.pop()
+        if noeud not in visites:
+            visites.add(noeud)
+            for voisin in (graph.neighbors(noeud)):
+                liste.append(voisin)
+    return visites
 
 def shortest_path(graph: Graph, start: str, goal: str) -> list[str] | None:
     """
@@ -252,7 +323,10 @@ def shortest_path(graph: Graph, start: str, goal: str) -> list[str] | None:
     """
     # TODO: implémenter
     # Astuce : appeler bfs_path()
-    pass
+    if not graph.has_node(start):
+        return None
+    chemin = bfs_path(graph, start, goal)
+    return chemin
 
 
 # ============================================================================
